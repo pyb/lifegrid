@@ -8,8 +8,8 @@ interface ItemProps {
     clickCallback? : () => void,
 }
 
-const color1: string = "rgb(218, 135, 135) ";
-const color2: string = "rgb(36, 169, 109) ";
+const color1: string = "rgb(69, 69, 69) ";
+const color2: string = "rgb(24, 34, 29) ";
 
 const backgroundProp = (progress:number) => { return {
     background: "linear-gradient(to top, " + color1 + " 0 " + (progress*100).toString()

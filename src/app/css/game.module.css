@@ -4,11 +4,10 @@
     height: 100%;
 }
 
-.gridLeft {
+.gridResources {
     flex-basis: 60%;
 }
 
-
-.gridRight {
+.gridTasks {
     flex-basis: 40%;
 }

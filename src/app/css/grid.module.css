@@ -1,5 +1,5 @@
 .grid {
-    background-color: darkblue;
+    background-color: rgb(17, 17, 36);
     display: grid;
     display: grid;
     grid-column-gap: 15px;
@@ -8,13 +8,13 @@
     height: 100%;
 }
 
-.grid1 {
+.resourceGrid {
     composes: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
 
-.grid2 {
+.taskGrid {
     composes: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);

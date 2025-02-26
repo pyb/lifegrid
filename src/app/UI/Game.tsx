@@ -4,26 +4,20 @@ import styles from "css/game.module.css"
 import Grid from "UI/Grid"
 import Item from "UI/Item"
 import * as Types from "game/gameTypes"
-
-const clickCallbackLeft = (id:number):void => {
-    console.log("clickLeft : " + id.toString());
-}
-
-const clickCallbackRight = (id:number):void => {
-    console.log("clickRight " + id.toString());
-}
+import * as Data from "game/gameData"
+import * as Game from "game/game"
 
 const resource1:Types.Resource = {
     id:1,
     name:"Foo",
 }
-const Game = () => {
+const GameMain = () => {
     return (
         <div className={styles.game}>
-            <div className={styles.gridLeft}>
-                <Grid section={1} clickCallback={clickCallbackLeft}
+            <div className={styles.gridResources}>
+                <Grid section={1} clickCallback={(name:string) => Game.click(name, Types.ItemType.Resource)}
                       elements = {[
-                        {resource: resource1, progress:0.3},
+                        {resource: resource1, n:1, progress:0.3},
                         {},
                         {},
                         {},
@@ -35,11 +29,11 @@ const Game = () => {
                       ]}>
                 </Grid>
             </div>
-            <div className={styles.gridRight}>
+            <div className={styles.gridTasks}>
                 <Grid section={2}
-                      clickCallback={clickCallbackRight}
+                      clickCallback={(name:string) => Game.click(name, Types.ItemType.Task)}
                       elements = {[
-                        {resource: resource1, progress:0.3},
+                        {task: Data.tasksMap.get("Job"), progress:0.3},
                         {},
                         {},
                         {},
@@ -52,4 +46,4 @@ const Game = () => {
     );
 }
 
-export default Game;
+export default GameMain;
