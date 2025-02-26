@@ -7,7 +7,6 @@ UI elements ? Grid of squares? That's resource grid. Resource grid with 2 grids?
 Left : the "resource-grid" grid
 Right: ???
 
-Grid size : 3x3 each ?
-or : 3x3 left, 2x3 right
+Grids: 3x3 left, 2x3 right
 
 

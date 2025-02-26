@@ -7,7 +7,7 @@ const Game = () => {
         <div className={styles.game}>
             <div className={styles.gridLeft}>
                 <Grid section={1}>
-                    <Item key={0} />
+                    <Item name="Foo" progress={0.3} key={0} />
                     <Item key={1} />
                     <Item key={2} />
                     <Item key={3} />

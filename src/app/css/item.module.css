@@ -5,4 +5,10 @@
     background-color: darkgreen;
     width: 10vw;
     height: 20vh;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
