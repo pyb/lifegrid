@@ -1,4 +1,5 @@
 Design notes ... Let's make a thing!
+Resource Grid Ripped off
 
 * Decisions?
 
@@ -8,5 +9,4 @@ Left : the "resource-grid" grid
 Right: ???
 
 Grids: 3x3 left, 2x3 right
-
 
