@@ -1,0 +1,8 @@
+.item {
+    border-style: solid;
+    border-color: grey;
+    border-width: 1px;
+    background-color: darkgreen;
+    width: 10vw;
+    height: 20vh;
+}

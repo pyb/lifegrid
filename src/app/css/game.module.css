@@ -1,0 +1,14 @@
+.game {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.gridLeft {
+    flex-basis: 60%;
+}
+
+
+.gridRight {
+    flex-basis: 40%;
+}

@@ -1,0 +1,21 @@
+.grid {
+    background-color: darkblue;
+    display: grid;
+    display: grid;
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+    padding: 20px;
+    height: 100%;
+}
+
+.grid1 {
+    composes: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.grid2 {
+    composes: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
