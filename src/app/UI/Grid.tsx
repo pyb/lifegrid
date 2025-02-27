@@ -20,7 +20,7 @@ const elementToItem = (el:Element, key:number, clickCallback:(name:string)=>void
             n={el.n}
             id={el.resource?.id}
             clickCallback={() => clickCallback(name || "")}
-            name={el.resource?.name || el.task?.name || (id ? ("Item " + id.toString()) : "Item")}>
+            name={name || (id ? ("Item " + id.toString()) : "")}>
         </Item>
     );
 }

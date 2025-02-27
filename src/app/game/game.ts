@@ -5,13 +5,33 @@ import { ItemType, Task, TaskInfo, Resource, GameState} from "game/gameTypes"
 const jobOutcomes = new Map<string, string>();
 jobOutcomes.set("Job", "Dollar");
 
-// action
-export const click = (name: string, type:ItemType):Types.GameStateUpdate => {
-    return (gs:GameState) => {
-        if (type == ItemType.Task){
-            if (!gs.ongoingTasks.get(name)) {
-                const info:TaskInfo = {
-                    task: name,
+export const buyTask = (name: string):Types.GameStateUpdate => {
+    return (gs: GameState) => {
+        if (!gs.ongoingTasks.get(name)) {
+            const info: TaskInfo = {
+                task: name,
+                time: 0,
+            }
+            gs.ongoingTasks.set(name, info);
+        }
+    }
+}
+
+export const buyResource = (name: string):Types.GameStateUpdate => {
+    return (gs: GameState) => {
+        const source = Data.resourceMap.get(name)?.source;
+        console.log(source)
+        if (source && gs.resources.get(source) )
+        {
+            const cost = <number>Data.resourceMap.get(name)?.cost;
+            const cur = <number>gs.resources.get(source);
+            console.log(cur)
+            if (!gs.ongoingTasks.get(name) &&
+                (cost <= cur))
+            {
+                gs.resources.set(source, cur - cost);
+                const info: TaskInfo = {
+                    resource: name,
                     time: 0,
                 }
                 gs.ongoingTasks.set(name, info);
@@ -20,19 +40,52 @@ export const click = (name: string, type:ItemType):Types.GameStateUpdate => {
     }
 }
 
+// action
+export const click = (name: string, type:ItemType):Types.GameStateUpdate => {
+    if (type == ItemType.Task){
+        return buyTask(name);
+    }
+    else
+        return buyResource(name);
+}
+
 export const gameLoop = (deltaMs: number):Types.GameStateUpdate => (gs:GameState) => {
     //console.log(gs.resources)
     const deltaS:number = deltaMs/1000; // delta in ms
     gs.ongoingTasks.forEach((info:TaskInfo, key:string) => {
         info.time += deltaS;
-        const task = <Task>Data.tasksMap.get(info.task);
-        if (info.time > task.duration)
+
+        if (info.task)
         {
-            gs.ongoingTasks.delete(key);
-            const newResource = jobOutcomes.get(task.name) as string;
-            const current:number = gs.resources.get(newResource) || 0;
-            gs.resources.set(newResource, current + 1);
+            const task = <Task>Data.tasksMap.get(info.task);
+            if (info.time > task.duration)
+            {
+                gs.ongoingTasks.delete(key);
+                const newResource = jobOutcomes.get(task.name) as string;
+                const current:number = gs.resources.get(newResource) || 0;
+                gs.resources.set(newResource, current + task.qty);
+            }
         }
+        else {
+            const resourceS = <string>info.resource;
+            const resource = <Resource>Data.resourceMap.get(resourceS as string);
+            if (info.time > <number>resource.duration)
+            {
+                gs.ongoingTasks.delete(key);
+                const current:number = gs.resources.get(resourceS) || 0;
+                gs.resources.set(resourceS, current + 1);
+            }
+        }
+       
     });
     return undefined;
+}
+
+export const getProgress = (name: string, type:Types.ItemType, gs:GameState):number => {
+    let duration:number = 0;
+    if (type == ItemType.Task)
+        duration = Data.tasksMap.get(name)?.duration as number;
+    else
+        duration = Data.resourceMap.get(name)?.duration as number;
+    return (gs.ongoingTasks.get(name)?.time || 0) / duration;
 }

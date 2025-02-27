@@ -1,6 +1,9 @@
 export type Resource = {
     id: number,
     name: string,
+    source?: string, // how can it be produced
+    cost?: number, // and for how much of "source"
+    duration?: number, // to purchase
     // upgradeTo:number, // id of the next resource
 }
 
@@ -18,7 +21,8 @@ export type Task = {
 }
 
 export type TaskInfo = {
-    task: string,
+    task?: string,
+    resource?: string,
     time: number, // elapsed
 } 
 

@@ -2,5 +2,5 @@ import * as Types from "game/gameTypes"
 
 export const initialGameState:Types.GameState = {
     ongoingTasks: new Map<string, Types.TaskInfo>(),
-    resources: new Map<string, number>(),
+    resources: new Map<string, number>(), // how much of each we have
 }

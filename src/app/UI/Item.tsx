@@ -22,7 +22,7 @@ const Item = ({progress, name, id, n, clickCallback}:ItemProps) => {
         <div className={styles.item} onClick={clickCallback}
                                      style={progress ? backgroundProp(progress): {}}>
             <div className={styles.name}>
-                {name || (id ? ("Item " + id.toString()) : "Item")}
+                {name}
             </div>
             {n &&
             <div className={styles.value}>

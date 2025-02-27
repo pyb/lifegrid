@@ -19,6 +19,15 @@ const resource1:Types.Resource = {
 
 const tick:number = 50; // ms
 
+const findElement = (name: string, type: Types.ItemType, gs:Types.GameState): Types.Element => {
+    return {
+        resource: (type == Types.ItemType.Resource) ? Data.resourceMap.get(name) : undefined,
+        task: (type == Types.ItemType.Task) ? Data.tasksMap.get(name) : undefined,
+        n: (type == Types.ItemType.Resource) ? gs.resources.get(name) : undefined,
+        progress: Game.getProgress(name, type, gs),
+    }
+}
+
 const GameMain = () => {
     const [GS, setGS] = useImmer<Types.GameState>(initialGameState);
     const [doProcessInterval, setDoProcessInterval] = React.useState<boolean>(false);
@@ -43,19 +52,18 @@ const GameMain = () => {
         };
     }, [setGS, setDoProcessInterval]);
 
-    //console.log(GS.resources.get("Dollar"))
     return (
         <div className={styles.game}>
             <div className={styles.gridResources}>
                 <Grid section={1} clickCallback={(name:string) => setGS(Game.click(name, Types.ItemType.Resource))}
                       elements = {[
-                        {resource: Data.resourceMap.get("Dollar"), n:GS.resources.get("Dollar"), progress:0},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
+                          { resource: Data.resourceMap.get("Dollar"), n: GS.resources.get("Dollar"), progress: 0 },
+                          findElement("House", Types.ItemType.Resource, GS),
+                          findElement("Cow", Types.ItemType.Resource, GS),
+                          {},
+                          {},
+                          {},
+                          {},
                         {},
                         {}
                       ]}>
@@ -66,7 +74,7 @@ const GameMain = () => {
                       clickCallback={(name:string) => setGS(Game.click(name, Types.ItemType.Task))}
                       elements = {[
                         {task: Data.tasksMap.get("Job"),
-                         progress: (GS.ongoingTasks.get("Job")?.time || 0) / (Data.tasksMap.get("Job")?.duration as number)},
+                            progress:Game.getProgress("Job", Types.ItemType.Task, GS)},
                         {},
                         {},
                         {},
