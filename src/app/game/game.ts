@@ -10,17 +10,21 @@ Data.tasks.forEach((t:Task) => {
 // still allowing multi-tasking...
 export const buyTask = (name: string):Types.GameStateUpdate => {
     return (gs: GameState) => {
-        if (!Data.tasksMap.get(name))
-            return;
-        if (name == "Farming" && gs.resources.get("Farm") == 0)
-            return;
-        if (!gs.ongoingTasks.get(name)) {
-            const info: TaskInfo = {
-                task: name,
-                time: 0,
+        const maxTasks = <number>gs.resources.get("Coffee");
+
+        if (!Data.tasksMap.get(name) ||
+            (name == "Farming" && gs.resources.get("Farm") == 0) ||
+            gs.ongoingTasks.get(name) ||
+            gs.ongoingTasks.size >= maxTasks)
+            {
+                return;
             }
-            gs.ongoingTasks.set(name, info);
+        const info: TaskInfo = {
+            task: name,
+            time: 0,
         }
+        gs.ongoingTasks.set(name, info);
+        
     }
 }
 

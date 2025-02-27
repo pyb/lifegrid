@@ -16,7 +16,7 @@ export const resources:Array<Resource> = [
         id:2,
         name: "Cow",
         source: [["Dollar", 50]],
-        duration: 10,
+        duration: 2,
     },
     {
         id:3,
@@ -27,6 +27,21 @@ export const resources:Array<Resource> = [
     {
         id:4,
         name: "Knowledge",
+        source: [],
+    },
+    {
+        id:5,
+        name: "Level",
+        source: [["Dollar", 10000]],
+    },
+    {
+        id:6,
+        name: "Coffee",
+        source: [["Farm", 1]],
+    },
+    {
+        id:7,
+        name: "Status",
         source: [],
     },
 ];
@@ -57,11 +72,25 @@ export const tasks:Array<Task> = [
         duration: 4, // seconds
     },
     {
-        id: 1,
+        id: 2,
         name: "Education",
         resource: "Knowledge",
         qty: 1,
         duration: 40, // seconds
+    },
+    {
+        id: 3,
+        name: "Tinker",
+        resource: "Knowledge",
+        qty: 1,
+        duration: 400, // seconds
+    },
+    {
+        id: 1,
+        name: "Politics",
+        resource: "Status",
+        qty: 1,
+        duration: 4, // seconds
     },
 ];
 

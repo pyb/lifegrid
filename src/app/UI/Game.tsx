@@ -63,11 +63,11 @@ const GameMain = () => {
                           findElement("House", Types.ItemType.Resource, GS),
                           findElement("Cow", Types.ItemType.Resource, GS),
                           findElement("Farm", Types.ItemType.Resource, GS),
+                          { resource: Data.resourceMap.get("Status"), n: GS.resources.get("Status"), progress: 0 },
                           {},
-                          {},
-                          {},
-                          {},
+                          findElement("Coffee", Types.ItemType.Resource, GS),
                           { resource: Data.resourceMap.get("Knowledge"), n: GS.resources.get("Knowledge"), progress: 0 },
+                          findElement("Level", Types.ItemType.Resource, GS),
                       ]}>
                 </Grid>
             </div>
@@ -77,8 +77,8 @@ const GameMain = () => {
                       elements = {[
                         findTask("Job", GS),
                         findTask("Farming", GS),
-                        {},
-                        {},
+                        findTask("Tinker", GS),
+                        findTask("Politics", GS),
                         {},
                         findTask("Education", GS),
                       ]}>
