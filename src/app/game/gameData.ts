@@ -1,4 +1,4 @@
-import {Task, Resource} from "game/gameTypes"
+import {Task, Resource, GameState} from "game/gameTypes"
 
 export const resources:Array<Resource> = [
     {
@@ -26,27 +26,42 @@ export const resources:Array<Resource> = [
     },
     {
         id:4,
-        name: "Wheat",
+        name: "Knowledge",
         source: [],
     },
-]
+];
 
 export const resourceMap = new Map<string, Resource>();
+
+export const jobReturn = (gs:GameState):number => {
+    return 100 * (gs.resources.get("Knowledge") as number);
+}
+
+export const farmReturn = (gs:GameState):number => {
+    return 50 * (gs.resources.get("Farm") as number);
+}
 
 export const tasks:Array<Task> = [
     {
         id: 0,
         name: "Job",
         resource: "Dollar",
-        qty: 100,
+        gain: jobReturn,
         duration: 2, // seconds
     },
     {
         id: 1,
         name: "Farming",
-        resource: "Wheat",
-        qty: 50,
+        resource: "Dollar",
+        gain: farmReturn,
         duration: 4, // seconds
+    },
+    {
+        id: 1,
+        name: "Education",
+        resource: "Knowledge",
+        qty: 1,
+        duration: 40, // seconds
     },
 ];
 
@@ -54,9 +69,3 @@ export const tasksMap = new Map<string, Task>();
 
 tasks.forEach(task => tasksMap.set(task.name, task));
 resources.forEach(resource => resourceMap.set(resource.name, resource));
-
-/*
-export const gameData = {
-
-}
-*/

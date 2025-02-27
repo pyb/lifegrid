@@ -23,6 +23,13 @@ const findElement = (name: string, type: Types.ItemType, gs:Types.GameState): Ty
     }
 }
 
+const findTask = (name:string, gs:Types.GameState) => {
+    return {
+        task: Data.tasksMap.get(name),
+        progress:Game.getProgress(name, Types.ItemType.Task, gs)
+    };
+}
+
 const GameMain = () => {
     const [GS, setGS] = useImmer<Types.GameState>(initialGameState);
     const [doProcessInterval, setDoProcessInterval] = React.useState<boolean>(false);
@@ -56,11 +63,11 @@ const GameMain = () => {
                           findElement("House", Types.ItemType.Resource, GS),
                           findElement("Cow", Types.ItemType.Resource, GS),
                           findElement("Farm", Types.ItemType.Resource, GS),
-                          { resource: Data.resourceMap.get("Wheat"), n: GS.resources.get("Wheat"), progress: 0 },
                           {},
                           {},
-                        {},
-                        {}
+                          {},
+                          {},
+                          { resource: Data.resourceMap.get("Knowledge"), n: GS.resources.get("Knowledge"), progress: 0 },
                       ]}>
                 </Grid>
             </div>
@@ -68,14 +75,12 @@ const GameMain = () => {
                 <Grid section={2}
                       clickCallback={(name:string) => {setGS(Game.click(name, Types.ItemType.Task))}}
                       elements = {[
-                        {task: Data.tasksMap.get("Job"),
-                            progress:Game.getProgress("Job", Types.ItemType.Task, GS)},
-                        {task: Data.tasksMap.get("Farming"),
-                            progress:Game.getProgress("Farming", Types.ItemType.Task, GS)},
+                        findTask("Job", GS),
+                        findTask("Farming", GS),
                         {},
                         {},
                         {},
-                        {},
+                        findTask("Education", GS),
                       ]}>
                 </Grid>
             </div> 

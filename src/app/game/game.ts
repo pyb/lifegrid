@@ -7,9 +7,12 @@ Data.tasks.forEach((t:Task) => {
     jobOutcomes.set(t.name, t.resource);
 });
 
+// still allowing multi-tasking...
 export const buyTask = (name: string):Types.GameStateUpdate => {
     return (gs: GameState) => {
         if (!Data.tasksMap.get(name))
+            return;
+        if (name == "Farming" && gs.resources.get("Farm") == 0)
             return;
         if (!gs.ongoingTasks.get(name)) {
             const info: TaskInfo = {
@@ -64,11 +67,16 @@ export const gameLoop = (deltaMs: number):Types.GameStateUpdate => (gs:GameState
             const task = <Task>Data.tasksMap.get(info.task);
             if (info.time > task.duration)
             {
-                console.log("yield")
                 gs.ongoingTasks.delete(key);
                 const newResource = jobOutcomes.get(task.name) as string;
                 const current:number = gs.resources.get(newResource) || 0;
-                gs.resources.set(newResource, current + task.qty);
+                let delta:number;
+                if (task.gain)
+                    delta = task.gain(gs);
+                else 
+                    delta = <number>task.qty;
+                console.log(delta)
+                gs.resources.set(newResource, current + delta);
             }
         }
         else {

@@ -19,7 +19,8 @@ export type Task = {
     id: number,
     name: string,
     resource: string, // resource name
-    qty: number, // resource id,
+    gain?: (gs:GameState) => number,
+    qty?: number, // resource id,
     duration: number, // in s
 }
 

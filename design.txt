@@ -12,4 +12,8 @@ Grids: 3x3 left, 2x3 right
 
 
 Ideas I had?
+Farm : $/Farming or wheat/farming will improve
+Task : Education. Slow!!  $/job will improve.
+only 1 task at a time
 
+Show costs on buttons ? Even only by hover
