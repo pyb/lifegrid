@@ -1,5 +1,5 @@
 .grid {
-    background-color: rgb(17, 17, 36);
+    background-color: rgb(28, 13, 47);
     display: grid;
     display: grid;
     grid-column-gap: 15px;
@@ -18,4 +18,57 @@
     composes: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
+}
+
+.item {
+    border-style: solid;
+    border-color: grey;
+    border-width: 1px;
+    width: 10vw;
+    height: 20vh;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.resourceGrid .item {
+    background-color: #222222;
+}
+
+.taskGrid .item {
+    background-color: #443333;
+}
+
+
+.LIdesc {
+    font-size: 85%;
+    color: rgb(219, 222, 225);
+/*    color: #aaaaff;*/
+}
+
+.tooltiptext {
+    composes: LIdesc;
+}
+
+/* Tooltip text */
+.item .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #222222;
+    opacity: 70%;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    padding-top: 100px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+.item:hover .tooltiptext {
+    visibility: visible;
 }

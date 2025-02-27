@@ -1,17 +1,4 @@
-Design notes ... Let's make a thing!
 Resource Grid Ripped off
 
-* Decisions?
-
-Exponential vs superlinear? Sup
-UI elements ? Grid of squares? That's resource grid. Resource grid with 2 grids?
-Left : the "resource-grid" grid
-Right: ???
-
-Grids: 3x3 left, 2x3 right
-
-
-Ideas I had?
-
 only 1 task at a time? Two?
-Show costs on buttons ? Even only by hover
+Automation?

@@ -1,7 +1,5 @@
 import Item from "UI/Item";
 import styles from "css/grid.module.css"
-import { Children } from 'react';
-import * as Types from "game/gameTypes"
 import {Element, Resource} from "game/gameTypes"
 
 interface GridProps {

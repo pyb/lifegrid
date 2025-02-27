@@ -1,5 +1,5 @@
 // Grid item
-import styles from "css/item.module.css"
+import styles from "css/grid.module.css"
 
 interface ItemProps {
     progress?: number,
