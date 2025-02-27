@@ -13,3 +13,33 @@
     align-items: center;
     color: white;
 }
+
+
+.LIdesc {
+    font-size: 85%;
+    color: rgb(219, 222, 225);
+/*    color: #aaaaff;*/
+}
+
+.tooltiptext {
+    composes: LIdesc;
+}
+
+/* Tooltip text */
+.item .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #222222;
+    opacity: 70%;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    padding-top: 100px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+.item:hover .tooltiptext {
+    visibility: visible;
+}

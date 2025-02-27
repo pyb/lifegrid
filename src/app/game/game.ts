@@ -75,7 +75,6 @@ export const gameLoop = (deltaMs: number):Types.GameStateUpdate => (gs:GameState
                     delta = task.gain(gs);
                 else 
                     delta = <number>task.qty;
-                console.log(delta)
                 gs.resources.set(newResource, current + delta);
             }
         }

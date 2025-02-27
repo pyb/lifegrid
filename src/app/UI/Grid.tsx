@@ -10,14 +10,26 @@ interface GridProps {
     clickCallback: (name:string) => void,
 };
 
+const displayCost = (cost:Array<[string, number]>):string => {
+    let result:string = "";
+    for (const [resource, value] of cost) {
+        result += (resource + " : " + value.toString() + "  ");
+    }
+    return result;
+}
+
 const elementToItem = (el:Element, key:number, clickCallback:(name:string)=>void) =>
 {
     const id: number | undefined = el.resource?.id;
     const name:string = el.resource?.name || el.task?.name || "";
+    let hoverText:string = "";
+    if (el.resource)
+        hoverText = displayCost(el.resource?.source);
     return (
         <Item progress={el.progress}
             key={key}
             n={el.n}
+            hoverText={hoverText}
             clickCallback={() => clickCallback(name || "")}
             name={name || (id ? ("Item " + id.toString()) : "")}>
         </Item>

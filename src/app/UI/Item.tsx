@@ -5,6 +5,7 @@ interface ItemProps {
     progress?: number,
     name?: string,
     n?: number,
+    hoverText: string,
     clickCallback? : () => void,
 }
 
@@ -16,7 +17,7 @@ const backgroundProp = (progress:number) => { return {
      + "%, " + color2 + " " + (progress*100).toString() + "% " + ((1-progress)*100).toString() +  "%)"
 }}
 
-const Item = ({progress, name, n, clickCallback}:ItemProps) => {
+const Item = ({progress, name, n, hoverText, clickCallback}:ItemProps) => {
     return(
         <div className={styles.item} onClick={clickCallback}
                                      style={progress ? backgroundProp(progress): {}}>
@@ -28,6 +29,7 @@ const Item = ({progress, name, n, clickCallback}:ItemProps) => {
                 {n > 0 ? n.toString() :"?"}
             </div>
             }
+            {hoverText && <span className={styles.tooltiptext}>{hoverText}</span>}
         </div>
     );
 }
