@@ -3,10 +3,14 @@ import * as Data from "game/gameData"
 import { ItemType, Task, TaskInfo, Resource, GameState} from "game/gameTypes"
 
 const jobOutcomes = new Map<string, string>();
-jobOutcomes.set("Job", "Dollar");
+Data.tasks.forEach((t:Task) => {
+    jobOutcomes.set(t.name, t.resource);
+});
 
 export const buyTask = (name: string):Types.GameStateUpdate => {
     return (gs: GameState) => {
+        if (!Data.tasksMap.get(name))
+            return;
         if (!gs.ongoingTasks.get(name)) {
             const info: TaskInfo = {
                 task: name,
@@ -21,6 +25,8 @@ export const buyResource = (name: string): Types.GameStateUpdate => {
     return (gs: GameState) => {
         if (gs.ongoingTasks.get(name))
             return;
+        if (!Data.resourceMap.get(name))
+            return;
         const source = <Array<[string, number]>> Data.resourceMap.get(name)?.source;
         for (const [resource, cost] of source)
         {
@@ -30,8 +36,6 @@ export const buyResource = (name: string): Types.GameStateUpdate => {
         }
         source.forEach(([resource, cost]) => {
             const cur = <number>gs.resources.get(resource);
-            console.log(resource)
-            console.log(cur)
             gs.resources.set(resource, cur - cost);
         });
         const info: TaskInfo = {
@@ -60,6 +64,7 @@ export const gameLoop = (deltaMs: number):Types.GameStateUpdate => (gs:GameState
             const task = <Task>Data.tasksMap.get(info.task);
             if (info.time > task.duration)
             {
+                console.log("yield")
                 gs.ongoingTasks.delete(key);
                 const newResource = jobOutcomes.get(task.name) as string;
                 const current:number = gs.resources.get(newResource) || 0;

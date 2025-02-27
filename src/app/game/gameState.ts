@@ -5,6 +5,7 @@ initialResources.set("Dollar", 0);
 initialResources.set("Cow", 0);
 initialResources.set("House", 0);
 initialResources.set("Farm", 0);
+initialResources.set("Wheat", 0);
 
 export const initialGameState:Types.GameState = {
     ongoingTasks: new Map<string, Types.TaskInfo>(),

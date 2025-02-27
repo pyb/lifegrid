@@ -56,7 +56,7 @@ const GameMain = () => {
                           findElement("House", Types.ItemType.Resource, GS),
                           findElement("Cow", Types.ItemType.Resource, GS),
                           findElement("Farm", Types.ItemType.Resource, GS),
-                          {},
+                          { resource: Data.resourceMap.get("Wheat"), n: GS.resources.get("Wheat"), progress: 0 },
                           {},
                           {},
                         {},
@@ -70,7 +70,8 @@ const GameMain = () => {
                       elements = {[
                         {task: Data.tasksMap.get("Job"),
                             progress:Game.getProgress("Job", Types.ItemType.Task, GS)},
-                        {},
+                        {task: Data.tasksMap.get("Farming"),
+                            progress:Game.getProgress("Farming", Types.ItemType.Task, GS)},
                         {},
                         {},
                         {},

@@ -6,7 +6,6 @@ export const resources:Array<Resource> = [
         name: "Dollar",
         source: [],
     },
-
     {
         id:1,
         name: "House",
@@ -25,6 +24,11 @@ export const resources:Array<Resource> = [
         source: [["Dollar", 20], ["House", 1], ["Cow", 4]],
         duration: 10,
     },
+    {
+        id:4,
+        name: "Wheat",
+        source: [],
+    },
 ]
 
 export const resourceMap = new Map<string, Resource>();
@@ -39,10 +43,10 @@ export const tasks:Array<Task> = [
     },
     {
         id: 1,
-        name: "Farm",
-        resource: "",
-        qty: 1,
-        duration: 2, // seconds
+        name: "Farming",
+        resource: "Wheat",
+        qty: 50,
+        duration: 4, // seconds
     },
 ];
 
