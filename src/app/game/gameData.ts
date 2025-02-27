@@ -1,4 +1,4 @@
-import {Task, Resource, GameState} from "game/gameTypes"
+import {Task, Resource, GameState, TaskInfo} from "game/gameTypes"
 
 export const resources:Array<Resource> = [
     {
@@ -49,6 +49,11 @@ export const resources:Array<Resource> = [
         name: "Tool", // Leading to : Machine , Robot...
         source: [],
     },
+    {
+        id:9,
+        name: "Friend", // Leading to?
+        source: [],
+    },
 ];
 
 export const resourceMap = new Map<string, Resource>();
@@ -78,7 +83,7 @@ export const tasks:Array<Task> = [
     },
     {
         id: 2,
-        name: "Learn",
+        name: "Study",
         resource: "Knowledge",
         qty: 1,
         duration: 40, // seconds
@@ -91,9 +96,16 @@ export const tasks:Array<Task> = [
         duration: 40, // seconds
     },
     {
-        id: 1,
-        name: "Politics", // This should cost $$ ? Or what? Halve $?
+        id: 4,
+        name: "Politics", // This should cost "Friend"
         resource: "Status",
+        qty: 1,
+        duration: 4, // seconds
+    },
+    {
+        id: 5,
+        name: "Play", // This should cost "Friend"
+        resource: "Friend",
         qty: 1,
         duration: 4, // seconds
     },
@@ -103,3 +115,19 @@ export const tasksMap = new Map<string, Task>();
 
 tasks.forEach(task => tasksMap.set(task.name, task));
 resources.forEach(resource => resourceMap.set(resource.name, resource));
+
+const initialResources = new Map<string, number>(); // how much of each we have
+initialResources.set("Dollar", 0);
+initialResources.set("Cow", 0);
+initialResources.set("House", 0);
+initialResources.set("Farm", 0);
+initialResources.set("Knowledge", 1); //  multiplier for job $ returns
+initialResources.set("Level", 1);
+initialResources.set("Coffee", 1); // To allow 1 task
+initialResources.set("Status", 0);
+initialResources.set("Friend", 0);
+
+export const initialGameState:GameState = {
+    ongoingTasks: new Map<string, TaskInfo>(),
+    resources: initialResources,
+}

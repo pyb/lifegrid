@@ -8,17 +8,18 @@ enableMapSet(); // immer setup call, to make Maps and Sets work
 import styles from "css/game.module.css"
 import Grid from "UI/Grid"
 import * as Types from "game/gameTypes"
+import {ItemType} from "game/gameTypes"
 import * as Data from "game/gameData"
 import * as Game from "game/game"
-import {initialGameState} from "game/gameState"
+import {initialGameState} from "game/gameData"
 
 const tick:number = 50; // ms
 
-const findElement = (name: string, type: Types.ItemType, gs:Types.GameState): Types.Element => {
+const findElement = (name: string, type: ItemType, gs:Types.GameState): Types.Element => {
     return {
-        resource: (type == Types.ItemType.Resource) ? Data.resourceMap.get(name) : undefined,
-        task: (type == Types.ItemType.Task) ? Data.tasksMap.get(name) : undefined,
-        n: (type == Types.ItemType.Resource) ? gs.resources.get(name) : undefined,
+        resource: (type == ItemType.Resource) ? Data.resourceMap.get(name) : undefined,
+        task: (type == ItemType.Task) ? Data.tasksMap.get(name) : undefined,
+        n: (type == ItemType.Resource) ? gs.resources.get(name) : undefined,
         progress: Game.getProgress(name, type, gs),
     }
 }
@@ -26,7 +27,7 @@ const findElement = (name: string, type: Types.ItemType, gs:Types.GameState): Ty
 const findTask = (name:string, gs:Types.GameState) => {
     return {
         task: Data.tasksMap.get(name),
-        progress:Game.getProgress(name, Types.ItemType.Task, gs)
+        progress:Game.getProgress(name, ItemType.Task, gs)
     };
 }
 
@@ -57,30 +58,31 @@ const GameMain = () => {
     return (
         <div className={styles.game}>
             <div className={styles.gridResources}>
-                <Grid section={1} clickCallback={(name:string) => {setGS(Game.click(name, Types.ItemType.Resource))}}
+                <Grid section={1} clickCallback={(name:string) => {setGS(Game.click(name, ItemType.Resource))}}
                       elements = {[
-                          { resource: Data.resourceMap.get("Dollar"), n: GS.resources.get("Dollar"), progress: 0 },
-                          findElement("House", Types.ItemType.Resource, GS),
-                          findElement("Cow", Types.ItemType.Resource, GS),
-                          findElement("Farm", Types.ItemType.Resource, GS),
-                          { resource: Data.resourceMap.get("Status"), n: GS.resources.get("Status"), progress: 0 },
-                          {},
-                          findElement("Coffee", Types.ItemType.Resource, GS),
-                          { resource: Data.resourceMap.get("Knowledge"), n: GS.resources.get("Knowledge"), progress: 0 },
-                          findElement("Level", Types.ItemType.Resource, GS),
+                          //{ resource: Data.resourceMap.get("Dollar"), n: GS.resources.get("Dollar"), progress: 0 },
+                          findElement("Dollar", ItemType.Resource, GS),
+                          findElement("House", ItemType.Resource, GS),
+                          findElement("Cow", ItemType.Resource, GS),
+                          findElement("Farm", ItemType.Resource, GS),
+                          findElement("Status", ItemType.Resource, GS),
+                          findElement("Friend", ItemType.Resource, GS),
+                          findElement("Coffee", ItemType.Resource, GS),
+                          findElement("Knowledge", ItemType.Resource, GS),
+                          findElement("Level", ItemType.Resource, GS),
                       ]}>
                 </Grid>
             </div>
             <div className={styles.gridTasks}>
                 <Grid section={2}
-                      clickCallback={(name:string) => {setGS(Game.click(name, Types.ItemType.Task))}}
+                      clickCallback={(name:string) => {setGS(Game.click(name, ItemType.Task))}}
                       elements = {[
                         findTask("Job", GS),
                         findTask("Farm", GS),
-                        findTask("Tinker", GS),
+                        findTask("Build", GS),
                         findTask("Politics", GS),
-                        {},
-                        findTask("Learn", GS),
+                        findTask("Play", GS),
+                        findTask("Study", GS),
                       ]}>
                 </Grid>
             </div> 

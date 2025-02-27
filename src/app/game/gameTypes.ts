@@ -2,10 +2,6 @@ export type Resource = {
     id: number,
     name: string,
     source:Array<[string, number]>,
-    /*
-    source?: string, // how can it be produced
-    cost?: number, // and for how much of "source"
-    */
     duration?: number, // to purchase
     // upgradeTo:number, // id of the next resource
 }
