@@ -12,11 +12,6 @@ import * as Data from "game/gameData"
 import * as Game from "game/game"
 import {initialGameState} from "game/gameState"
 
-const resource1:Types.Resource = {
-    id:1,
-    name:"Foo",
-}
-
 const tick:number = 50; // ms
 
 const findElement = (name: string, type: Types.ItemType, gs:Types.GameState): Types.Element => {
@@ -55,12 +50,12 @@ const GameMain = () => {
     return (
         <div className={styles.game}>
             <div className={styles.gridResources}>
-                <Grid section={1} clickCallback={(name:string) => setGS(Game.click(name, Types.ItemType.Resource))}
+                <Grid section={1} clickCallback={(name:string) => {setGS(Game.click(name, Types.ItemType.Resource))}}
                       elements = {[
                           { resource: Data.resourceMap.get("Dollar"), n: GS.resources.get("Dollar"), progress: 0 },
                           findElement("House", Types.ItemType.Resource, GS),
                           findElement("Cow", Types.ItemType.Resource, GS),
-                          {},
+                          findElement("Farm", Types.ItemType.Resource, GS),
                           {},
                           {},
                           {},
@@ -71,7 +66,7 @@ const GameMain = () => {
             </div>
             <div className={styles.gridTasks}>
                 <Grid section={2}
-                      clickCallback={(name:string) => setGS(Game.click(name, Types.ItemType.Task))}
+                      clickCallback={(name:string) => {setGS(Game.click(name, Types.ItemType.Task))}}
                       elements = {[
                         {task: Data.tasksMap.get("Job"),
                             progress:Game.getProgress("Job", Types.ItemType.Task, GS)},

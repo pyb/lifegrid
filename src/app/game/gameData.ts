@@ -4,20 +4,25 @@ export const resources:Array<Resource> = [
     {
         id:0,
         name: "Dollar",
+        source: [],
     },
 
     {
         id:1,
         name: "House",
-        source: "Dollar",
-        cost : 200,
+        source: [["Dollar", 200]],
         duration: 4,
     },
     {
         id:2,
         name: "Cow",
-        source: "Dollar",
-        cost : 50,
+        source: [["Dollar", 50]],
+        duration: 10,
+    },
+    {
+        id:3,
+        name: "Farm",
+        source: [["Dollar", 20], ["House", 1], ["Cow", 4]],
         duration: 10,
     },
 ]

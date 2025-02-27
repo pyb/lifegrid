@@ -18,7 +18,6 @@ const elementToItem = (el:Element, key:number, clickCallback:(name:string)=>void
         <Item progress={el.progress}
             key={key}
             n={el.n}
-            id={el.resource?.id}
             clickCallback={() => clickCallback(name || "")}
             name={name || (id ? ("Item " + id.toString()) : "")}>
         </Item>
