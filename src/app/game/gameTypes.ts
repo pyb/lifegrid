@@ -28,3 +28,10 @@ export type Element = {
     progress?: number,
     n?: number, // prob makes sense for resources, no tasks?
 }
+
+export type GameState = {
+    ongoingTasks: Map<string, TaskInfo>,
+    resources: Map<string, number>,
+}
+
+export type GameStateUpdate = ((gs:GameState) => void);

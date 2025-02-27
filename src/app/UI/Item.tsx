@@ -4,7 +4,8 @@ import styles from "css/item.module.css"
 interface ItemProps {
     progress?: number,
     name?: string,
-    id?: number
+    id?: number,
+    n?: number,
     clickCallback? : () => void,
 }
 
@@ -16,13 +17,18 @@ const backgroundProp = (progress:number) => { return {
      + "%, " + color2 + " " + (progress*100).toString() + "% " + ((1-progress)*100).toString() +  "%)"
 }}
 
-const Item = ({progress, name, id, clickCallback}:ItemProps) => {
+const Item = ({progress, name, id, n, clickCallback}:ItemProps) => {
     return(
         <div className={styles.item} onClick={clickCallback}
                                      style={progress ? backgroundProp(progress): {}}>
             <div className={styles.name}>
                 {name || (id ? ("Item " + id.toString()) : "Item")}
             </div>
+            {n &&
+            <div className={styles.value}>
+                {n > 0 ? n.toString() :"?"}
+            </div>
+            }
         </div>
     );
 }
