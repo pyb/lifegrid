@@ -76,11 +76,11 @@ const GameMain = () => {
                       clickCallback={(name:string) => {setGS(Game.click(name, Types.ItemType.Task))}}
                       elements = {[
                         findTask("Job", GS),
-                        findTask("Farming", GS),
+                        findTask("Farm", GS),
                         findTask("Tinker", GS),
                         findTask("Politics", GS),
                         {},
-                        findTask("Education", GS),
+                        findTask("Learn", GS),
                       ]}>
                 </Grid>
             </div> 

@@ -14,7 +14,7 @@ export const resources:Array<Resource> = [
     },
     {
         id:2,
-        name: "Cow",
+        name: "Cow", // Leading to? 
         source: [["Dollar", 50]],
         duration: 2,
     },
@@ -44,6 +44,11 @@ export const resources:Array<Resource> = [
         name: "Status",
         source: [],
     },
+    {
+        id:8,
+        name: "Tool", // Leading to : Machine , Robot...
+        source: [],
+    },
 ];
 
 export const resourceMap = new Map<string, Resource>();
@@ -66,28 +71,28 @@ export const tasks:Array<Task> = [
     },
     {
         id: 1,
-        name: "Farming",
+        name: "Farm",
         resource: "Dollar",
         gain: farmReturn,
         duration: 4, // seconds
     },
     {
         id: 2,
-        name: "Education",
+        name: "Learn",
         resource: "Knowledge",
         qty: 1,
         duration: 40, // seconds
     },
     {
         id: 3,
-        name: "Tinker",
-        resource: "Knowledge",
+        name: "Build",
+        resource: "Tool",
         qty: 1,
-        duration: 400, // seconds
+        duration: 40, // seconds
     },
     {
         id: 1,
-        name: "Politics",
+        name: "Politics", // This should cost $$ ? Or what? Halve $?
         resource: "Status",
         qty: 1,
         duration: 4, // seconds

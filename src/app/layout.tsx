@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Idle game 2",
+  title: "Life Grid",
 };
 
 export default function RootLayout({
