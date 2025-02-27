@@ -1,7 +1,7 @@
 export type Resource = {
     id: number,
     name: string,
-    source:Array<[string, number]>,
+    sourcing:Array<Source>,
     duration?: number, // to purchase
     // upgradeTo:number, // id of the next resource
 }
@@ -37,5 +37,10 @@ export type GameState = {
     ongoingTasks: Map<string, TaskInfo>,
     resources: Map<string, number>,
 }
+
+export type Source = {
+    duration:number,
+    resources:Array<[string, number]>, 
+} 
 
 export type GameStateUpdate = ((gs:GameState) => void);

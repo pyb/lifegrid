@@ -1,58 +1,61 @@
 import {Task, Resource, GameState, TaskInfo} from "game/gameTypes"
 
+// Create a sourcing field  = Array<Source>, chosen earliest-first
+
 export const resources:Array<Resource> = [
     {
         id:0,
         name: "Dollar",
-        source: [],
+        sourcing: [],
     },
     {
         id:1,
         name: "House",
-        source: [["Dollar", 200]],
+        sourcing: [{duration:4, resources: [["Dollar", 200]]}],
         duration: 4,
     },
     {
         id:2,
         name: "Cow", // Leading to? 
-        source: [["Dollar", 50]],
+        sourcing: [{duration:2, resources: [["Dollar", 50]]}],
+
         duration: 2,
     },
     {
         id:3,
         name: "Farm",
-        source: [["Dollar", 20], ["House", 1], ["Cow", 4]],
-        duration: 10,
+        sourcing: [{duration:10, resources: [["Dollar", 20], ["House", 1], ["Cow", 4]]},
+                   {duration:100, resources: [["Dollar", 200], ["House", 2]]}]
     },
     {
         id:4,
         name: "Knowledge",
-        source: [],
+        sourcing: [],
     },
     {
         id:5,
         name: "Level",
-        source: [["Dollar", 10000]],
+        sourcing: [{duration:60, resources: [["Dollar", 10000]]}],
     },
     {
         id:6,
         name: "Coffee",
-        source: [["Farm", 1]],
+        sourcing: [{duration:4, resources: [["Farm", 1]]}],
     },
     {
         id:7,
         name: "Status",
-        source: [],
+        sourcing: [],
     },
     {
         id:8,
         name: "Tool", // Leading to : Machine , Robot...
-        source: [],
+        sourcing: [],
     },
     {
         id:9,
         name: "Friend", // Leading to?
-        source: [],
+        sourcing: [],
     },
 ];
 

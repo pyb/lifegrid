@@ -34,7 +34,9 @@ export const buyResource = (name: string): Types.GameStateUpdate => {
             return;
         if (!Data.resourceMap.get(name))
             return;
-        const source = <Array<[string, number]>> Data.resourceMap.get(name)?.source;
+        const source = <Array<[string, number]>> Data.resourceMap.get(name)?.sourcing[0].resources; // TODO : review all sources
+        if (!source)
+            return;
         for (const [resource, cost] of source)
         {
             const cur = <number>gs.resources.get(resource);

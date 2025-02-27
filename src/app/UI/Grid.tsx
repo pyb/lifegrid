@@ -1,6 +1,6 @@
 import Item from "UI/Item";
 import styles from "css/grid.module.css"
-import {Element, Resource} from "game/gameTypes"
+import {Element, Resource, Source} from "game/gameTypes"
 
 interface GridProps {
     elements: Array<Element>,
@@ -8,12 +8,17 @@ interface GridProps {
     clickCallback: (name:string) => void,
 };
 
-const displayCost = (cost:Array<[string, number]>):string => {
-    let result:string = "";
-    for (const [resource, value] of cost) {
-        result += (resource + " : " + value.toString() + "  ");
+const displayCost = (sourcing:Array<Source>):string => {
+    let result:Array<string> = [];
+    for (const source of sourcing) {
+        let s:string = ""
+        for (const [resource, value] of source.resources) {
+            s += (resource + " : " + value.toString() + "  ");
+        }     
+        result.push(s);
     }
-    return result;
+   
+    return result.join(" OR ");
 }
 
 const elementToItem = (el:Element, key:number, clickCallback:(name:string)=>void) =>
@@ -22,7 +27,7 @@ const elementToItem = (el:Element, key:number, clickCallback:(name:string)=>void
     const name:string = el.resource?.name || el.task?.name || "";
     let hoverText:string = "";
     if (el.resource)
-        hoverText = displayCost(el.resource?.source);
+        hoverText = displayCost(el.resource?.sourcing);
     return (
         <Item progress={el.progress}
             key={key}
