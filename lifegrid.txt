@@ -1,76 +1,6 @@
 V2 "Spec":
 ----
 
-"Item" = Task | Resource
-
-* UI functions:
-
-~For each item, render:
-- item info:
- name
- number
- cost
- progress
-
-- Render:Relationships with other items?
-Hover->arrow?
-Pass the relationships
-
-- Register click on item
-
-- maybe a companion icon.
-
-----
-
-* game/*.ts functions:
-
-- Resolving keypress / item clicked
- Launch a buy
-
-- Actions?
- - Buy resource
- - Task launch
- 
-~ game loop:
- - compute progress
- - completions
- - self generation (if any)
-
-~ produce views. possibly:
- - item costs
- - what a click would do? "click map" resource->action
- - relationships (arrows/flows) for visual
- - Progress speed for each item (depends on other vars)
- 
-~ State:
- - ongoing tasks/resources (Progress for each item )
- - Number of each resource
- - Duration dividers ? Task speeds?
- 
------
-
-Data :
-
-Task outcomes
-Resources:
-
-- Cost (if buying from other resources)
-[maybe -Cost (if buying via task)] => see task outcomes
-- Item duration (task or resource buy)
-
-Don't hesitate to firstly use Hardcoded gain functions / State updates
-
-Initial state / quantities
-
-What resource at what level
-Companion list vs prestige
-
-------
-
-Structuring the code
-
-"Big-Declarative" ? Lots of code/functions in game/data/ts ?
-
 -----------------------------------
 
 * Rules
@@ -107,7 +37,7 @@ Farms has all the production
 
 D, E...
 
-------
+---------
 
 Cow makes farm quicker
 Farm produces cow (manual click)
