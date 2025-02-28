@@ -11,11 +11,13 @@ Data.tasks.forEach((t:Task) => {
 export const buyTask = (name: string):Types.GameStateUpdate => {
     return (gs: GameState) => {
         const maxTasks = <number>gs.resources.get("Coffee");
+        let nTasks:number = 0
+        gs.ongoingTasks.forEach((inf:TaskInfo) => {if (inf.task) nTasks++});
 
         if (!Data.tasksMap.get(name) ||
             (name == "Farming" && gs.resources.get("Farm") == 0) ||
             gs.ongoingTasks.get(name) ||
-            gs.ongoingTasks.size >= maxTasks)
+            nTasks >= maxTasks)
             {
                 return;
             }
@@ -32,7 +34,7 @@ export const buyResource = (name: string): Types.GameStateUpdate => {
     return (gs: GameState) => {
         if (gs.ongoingTasks.get(name))
             return;
-        if (!Data.resourceMap.get(name))
+        if (!Data.resourceMap.get(name)?.sourcing[0])
             return;
         const source = <Array<[string, number]>> Data.resourceMap.get(name)?.sourcing[0].resources; // TODO : review all sources
         if (!source)
