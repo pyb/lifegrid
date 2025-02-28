@@ -1,24 +1,4 @@
 Resource Grid Ripped off
 
-only 1 task at a time? Two?
 Automation?
 
-Poor man's enum? 
-type Resource = number;
-type Task = number;
-
-const Dollar:Resource = 0;
-const House:Resource = 1;
-etc...
-
---
-
-or just 
-enum R {
-    Dollar,
-    House,
-    ...
-}
-type "R.Dollar". etc "T.Job" etc
-
-Bug : Resources are blocking tasks ! maxtasks should ignore ongoing resources...

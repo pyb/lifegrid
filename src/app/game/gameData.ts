@@ -18,7 +18,6 @@ export const resources:Array<Resource> = [
         id:2,
         name: "Cow", // Leading to? 
         sourcing: [{duration:2, resources: [["Dollar", 50]]}],
-
         duration: 2,
     },
     {
@@ -61,12 +60,23 @@ export const resources:Array<Resource> = [
 
 export const resourceMap = new Map<string, Resource>();
 
-export const jobReturn = (gs:GameState):number => {
-    return 100 * (gs.resources.get("Knowledge") as number);
+export const jobGain = (gs:GameState):void => {
+    const delta:number = 100 * (gs.resources.get("Knowledge") as number);
+    const current:number =  gs.resources.get("Dollar") || 0;
+    gs.resources.set("Dollar", current + delta);
 }
 
-export const farmReturn = (gs:GameState):number => {
-    return 50 * (gs.resources.get("Farm") as number);
+export const farmGain = (gs:GameState):void => {
+    const delta:number =  50 * (gs.resources.get("Farm") as number);
+    const current:number =  gs.resources.get("Dollar") || 0;
+    gs.resources.set("Dollar", current + delta);
+}
+
+export const politics = (gs:GameState):void => {
+    const status:number =  gs.resources.get("Status") || 0;
+    const friends:number =  gs.resources.get("Friend") || 0;
+    gs.resources.set("Status", status + 1);
+    gs.resources.set("Friend", friends - 1);
 }
 
 export const tasks:Array<Task> = [
@@ -74,14 +84,14 @@ export const tasks:Array<Task> = [
         id: 0,
         name: "Job",
         resource: "Dollar",
-        gain: jobReturn,
+        gain: jobGain,
         duration: 2, // seconds
     },
     {
         id: 1,
         name: "Farm",
         resource: "Dollar",
-        gain: farmReturn,
+        gain: farmGain,
         duration: 4, // seconds
     },
     {
@@ -102,7 +112,7 @@ export const tasks:Array<Task> = [
         id: 4,
         name: "Politics", // This should cost "Friend"
         resource: "Status",
-        qty: 1,
+        gain: politics,
         duration: 4, // seconds
     },
     {

@@ -26,7 +26,7 @@ const Item = ({progress, name, n, hoverText, clickCallback}:ItemProps) => {
             </div>
             {n &&
             <div className={styles.value}>
-                {n > 0 ? n.toString() :"?"}
+                {n != 0 ? Math.abs(n).toString() :""}
             </div>
             }
             {hoverText && <span className={styles.tooltiptext}>{hoverText}</span>}

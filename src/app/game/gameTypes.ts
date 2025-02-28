@@ -15,7 +15,8 @@ export type Task = {
     id: number,
     name: string,
     resource: string, // resource name
-    gain?: (gs:GameState) => number,
+    resources?: Array<[string, number]>,
+    gain?: (gs:GameState) => void,
     qty?: number, // resource id,
     duration: number, // in s
 }

@@ -24,7 +24,14 @@ const displayCost = (sourcing:Array<Source>):string => {
 const elementToItem = (el:Element, key:number, clickCallback:(name:string)=>void) =>
 {
     const id: number | undefined = el.resource?.id;
-    const name:string = el.resource?.name || el.task?.name || "";
+    let name:string = el.resource?.name || el.task?.name || "";
+    let n = el.n;
+    if (name == "Friend" && n && n < 0)
+    {
+        name = "Enemy";
+        n = -n;
+    }
+        
     let hoverText:string = "";
     if (el.resource)
         hoverText = displayCost(el.resource?.sourcing);

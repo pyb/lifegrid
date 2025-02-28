@@ -15,7 +15,7 @@ export const buyTask = (name: string):Types.GameStateUpdate => {
         gs.ongoingTasks.forEach((inf:TaskInfo) => {if (inf.task) nTasks++});
 
         if (!Data.tasksMap.get(name) ||
-            (name == "Farming" && gs.resources.get("Farm") == 0) ||
+            (name == "Farm" && gs.resources.get("Farm") == 0) ||
             gs.ongoingTasks.get(name) ||
             nTasks >= maxTasks)
             {
@@ -80,10 +80,14 @@ export const gameLoop = (deltaMs: number):Types.GameStateUpdate => (gs:GameState
                 const current:number = gs.resources.get(newResource) || 0;
                 let delta:number;
                 if (task.gain)
-                    delta = task.gain(gs);
+                {
+                    task.gain(gs);
+                }
                 else 
+                {
                     delta = <number>task.qty;
-                gs.resources.set(newResource, current + delta);
+                    gs.resources.set(newResource, current + delta);
+                }
             }
         }
         else {
