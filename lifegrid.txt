@@ -15,22 +15,92 @@ Build
 
 ----
 
-*UI functions:
+* UI functions:
 
-Display item info
-Register click on item
+~For each item, render:
+- item info:
+ name
+ number
+ cost
+ progress
 
+- Render:Relationships with other items?
+Hover->arrow?
+Pass the relationships
 
+- Register click on item
+
+- maybe a companion icon.
 
 ----
 
-game/*.ts functions:
+* game/*.ts functions:
 
-- Resolving keypress
--> task always resolves if no other current task (does prestige allow for > 1 tasks? Y)
+- Resolving keypress / item clicked
+ Launch a buy
 
--
+- Actions?
+ - Buy resource
+ - Task launch
+ 
+~ game loop:
+ - compute progress
+ - completions
+ - self generation (if any)
+
+~ produce views. possibly:
+ - item costs
+ - what a click would do? "click map" resource->action
+ - relationships (arrows/flows) for visual
+ - Progress speed for each item (depends on other vars)
+ 
+~ State:
+ - ongoing tasks/resources (Progress for each item )
+ - Number of each resource
+ - Duration dividers ? Task speeds?
+ 
+-----
+
+Data :
+
+Task outcomes
+Resources:
+
+- Cost (if buying from other resources)
+[maybe -Cost (if buying via task)] => see task outcomes
+- Item duration (task or resource buy)
+
+Don't hesitate to firstly use Hardcoded gain functions / State updates
+
+Initial state / quantities
+
+
+What resource at what level
+Companion list vs prestige
+
+
+-----------------------------------
+
+* Rules
+
+Tasks: click task always starts if no other current task (does prestige allow for > 1 tasks? Y)
+
+Task speed:
+
+"Level" can be started early on but has v slow progress.
+Speeded up by
+
+Resources can be bought via task ; or combination of other resources (multiple combos possible, more or less expensive) ; or ....
+
 
 ---
 
-Prestige [as opposed to level] : allow for >1 tasks
+Prestige [as opposed to level] : allow for >1 tasks?
+
+What automation, if any?
+
+==================
+
+Structuring the code
+
+"Big-Declarative" ? Lots of code/functions in game/data/ts ?
