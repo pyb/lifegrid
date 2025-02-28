@@ -1,19 +1,7 @@
 V2 "Spec":
-
-6 resources
-$, Companion,Tool, Coffee, Farm, Level
-(Hidden 7th, I guess: Prestige)
-
-3 tasks:
-Work (Job)
-Farm
-Build
-
 ----
 
 "Item" = Task | Resource
-
-----
 
 * UI functions:
 
@@ -74,24 +62,94 @@ Don't hesitate to firstly use Hardcoded gain functions / State updates
 
 Initial state / quantities
 
-
 What resource at what level
 Companion list vs prestige
 
+------
+
+Structuring the code
+
+"Big-Declarative" ? Lots of code/functions in game/data/ts ?
 
 -----------------------------------
 
 * Rules
 
+
+5 resources
+$, Companion, Tool (Shovel, Hoe, ...), Crop (Coffee, ...), Farm
+(Hidden 7th, I guess: Prestige)
+
+But Only 2 I can click on to buy  : Farm, Companion
+
+-> Some bought via other resources
+-> Some created via tasks
+-> Some generated via other resources
+
+3 tasks:
+Work (Job)
+Build
+Level (automatic)
+
+---------
+
+Principles:
+A
+Rapid clicking on tasks
+
+
+B
+Progression system (Level ; + prestige ie companion (cow) mechanic)
+
+
+C
+Farms has all the production
+
+D, E...
+
+------
+
+Cow makes farm quicker
+Farm produces cow (manual click)
+
+Farm costs $ and generate $
+
+Farm + tool makes coffee continuously. Rate depends on farms and Tool (multiplier?).
+ [ eg : const coffeeRate = (gs) => A*gs.farms * (B +C * toolboost(gs.toolLevel)); or sth. Does toolboost depend on farms ? (ie superlinear?) it it an exponent? farms^toolboostexponent(toolLevel)? ]
+
+Coffee makes tasks faster (formula : coffee level vs task?). sublinear "task speed vs coffee" ? log or sqrt formula? 
+
+Tool slot has a tool with a n/100 progress counter, increased by Build task [rename it? Upgrade task?]
+-> line of tools for each level
+
+Farms are central and accumulating them should be satisfying... (inc. icons?)
+
+Job creates $
+Farm creates
+Build creates
+
+--------
+
+
 Tasks: click task always starts if no other current task (does prestige allow for > 1 tasks? Y)
 
 Task speed:
+Frequent (1s or less) / low reward ;  or slow/high reward: Level
 
-"Level" can be started early on but has v slow progress.
-Speeded up by
+"Level Up" can be started early on but has v slow progress.
+Speeded up by ...? 
+Is it in fact a task? If so, not limited by max simultaneous tasks.
+
 
 Resources can be bought via task ; or combination of other resources (multiple combos possible, more or less expensive) ; or ....
 
+
+---
+
+Level progression:
+3 Resources change : Tool, Farm, maybe Coffee ;  but Dollar, companion, Level don't
+
+If "coffee" changes (to what?), I can click on tasks quicker, or have more on the go
 
 ---
 
@@ -99,8 +157,3 @@ Prestige [as opposed to level] : allow for >1 tasks?
 
 What automation, if any?
 
-==================
-
-Structuring the code
-
-"Big-Declarative" ? Lots of code/functions in game/data/ts ?
