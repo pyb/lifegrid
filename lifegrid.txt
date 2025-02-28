@@ -1,0 +1,36 @@
+V2 "Spec":
+
+6 resources
+$, Companion,Tool, Coffee, Farm, Level
+(Hidden 7th, I guess: Prestige)
+
+3 tasks:
+Work (Job)
+Farm
+Build
+
+----
+
+"Item" = Task | Resource
+
+----
+
+*UI functions:
+
+Display item info
+Register click on item
+
+
+
+----
+
+game/*.ts functions:
+
+- Resolving keypress
+-> task always resolves if no other current task (does prestige allow for > 1 tasks? Y)
+
+-
+
+---
+
+Prestige [as opposed to level] : allow for >1 tasks
