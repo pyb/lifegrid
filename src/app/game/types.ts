@@ -31,8 +31,15 @@ export type TaskInfo = {
     level?: number, // maybe use this
 };
 
+export type ResourceCost = Array<[Resource, number]>;
+
 export type GameState = {
     resources: Map<Resource, ResourceInfo>,
+    ongoing: {
+        tasks: Array<TaskInfo>,
+        resources: Array<ResourceInfo>
+    },
+    clicked: Array<Item>; // all that was clicked within the last tick
 };
 export type State = GameState;
 
