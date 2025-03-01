@@ -1,6 +1,11 @@
 V2 "Spec":
 ----
 
+----------
+
+Tomorrow : 1) focus on the maybe hard part (?) : finding clean structure for the "evolving costs and rates" part
+2) Maybe Review design, find additional "fun"
+
 -----------------------------------
 
 * Rules
@@ -15,6 +20,8 @@ But Only 2 I can click on to buy  : Farm, Companion
 -> Some bought via other resources
 -> Some created via tasks
 -> Some generated via other resources
+
+****... and importantly, these costs and rates evolve over time!
 
 3 tasks:
 Work (Job)
