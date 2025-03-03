@@ -28,9 +28,8 @@ export type ResourceCost = {
 
 export const I = Item;
 
-
 export type ResourceInfo = {
-    Resource: number,
+    resource: number,
     n: number,
     active: boolean,
     progress: number, // in %
