@@ -1,23 +1,27 @@
 .grid {
     background-color: rgb(28, 13, 47);
-    display: grid;
-    display: grid;
-    grid-column-gap: 15px;
-    grid-row-gap: 15px;
     padding: 20px;
     height: 100%;
 }
 
 .resourceGrid {
     composes: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
+    flex-basis:60%;
+}
+
+.resourceRow {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 50%;
 }
 
 .taskGrid {
     composes: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
+    flex-basis:40%;
 }
 
 .item {
@@ -39,18 +43,11 @@
     background-color: #443333;
 }
 
-
-.LIdesc {
+.tooltiptext {
     font-size: 85%;
     color: rgb(219, 222, 225);
-/*    color: #aaaaff;*/
 }
 
-.tooltiptext {
-    composes: LIdesc;
-}
-
-/* Tooltip text */
 .item .tooltiptext {
     visibility: hidden;
     width: 120px;
