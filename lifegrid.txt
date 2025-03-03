@@ -1,17 +1,6 @@
 V2 "Spec":
 ----
 
-
-----------
-
-Tomorrow : 1) focus on the maybe hard part (?) : finding clean structure for the "evolving costs and rates" part
-2) Maybe Review design, find additional "fun"
-
-
-
-----
-
-
 Data model:
 
 Resources can have:
@@ -73,7 +62,7 @@ Progression system (Level ; + prestige ie companion (cow) mechanic)
 C
 Farms has all the production
 
-D, E...
+D : automation
 
 ---------
 
@@ -112,16 +101,106 @@ Is it in fact a task? If so, not limited by max simultaneous tasks.
 Resources can be bought via task ; or combination of other resources (multiple combos possible, more or less expensive) ; or ....
 
 
----
-
-Level progression:
-3 Resources change : Tool, Farm, maybe Coffee ;  but Dollar, companion, Level don't
-
-If "coffee" changes (to what?), I can click on tasks quicker, or have more on the go
-
----
+-----
 
 Prestige [as opposed to level] : allow for >1 tasks?
+Or better companion with different features?
 
-What automation, if any?
+-----------
+
+R: dollar, farm, tool, companion, crop
+
+Farm cost : 2000 or 200+cow
+(Might change role of cow below though)
+
+100 tool to upgrade -> self buy(what did i mean? Spend something to buy the same? What does that mean?)
+
+Farm + tool = crop prod rate (auto)
+
+Crop = faster tasks. Why? How ? Sublinear
+Crop can buy dollar. Click on dollar
+Or allow faster tasks
+
+Tool levels:
+Lvl1: spoon, knife, shovel...
+Lvl2: drill,..., bulldozer...
+
+How to buy tool upgrade? Build task
+
+Principle D should be automation
+Via resource 6 worker? No, via companion.
+
+Crop -> cow! (Or workhorse)
+N cows = automation speed
+
+-----------------------------------
+
+For real?
+R: dollar, farm, tool, companion, crop
+T: Work, Build, Level (auto)
+
+* Work
+100$/job, 10s
+Or 100$*F(farm) / job, 10s  where F(farm) = 1 + D * sqrt(farm) ?
+I want D such that say 1 farm => 1.2, 2 farm => 1.33, ... 
+
+* Farm
+Farm cost : 1000
+
+* Tool
+10 tool/Build
+100 tool to upgrade 
+Getting Tool upgrade : Get 100 tool. Second tool upgrades at 1000 tool, etc
+Can I get tool faster wrt Build? Design choice: no for now.
+Task speed divided by 2^(tool level)?
+
+* Crop
+Farm + tool = crop generation Farm ^ A*ToolLevel*. Try A=1
+(or maybe Farm ^ A*ToolLevel*log(Farm)/C(Level)*)
+where C(Level is a level-dependent constant?)
+
+Crop Flow : crop converts to dollar. try 1 Potato = 1 dollar. 1 lvl2 crop = 10 dollar etc
+    Turn a Crop->$ "flow" on and off by clicking on crop.
+    It is a modal. Add a green $ icon/text when selling. Hover says "start selling" or "stop selling"
+500 Crop -> cow! (Or workhorse)
+
+* Level upgrades
+Crop upgrades by Level
+Tool range upgrade by Level
+
+Tool levels:
+Lvl1: spoon, knife, shovel...
+Lvl2: drill,..., bulldozer...
+
+Crop Level:
+1:Potato 2:Corn 3:Rice...
+
+------ Certainty line
+
+Cows/Workhorse/Companion/Pet = automation speed
+Automate what ? Latest clicked
+Autoclick rate: 
+
+Level speed? function of Farms, maybe Cow
+
+--- Hypothesis - bc I don't know what the game will want.
+
+Cows drive automation.
+Other pets behave qualitatively differently.
+--
+
+Design :
+1 cow does 1 work click every 10s
+1 cow work = 1$, human work = 100$. Different progress colors!
+Clicks linear with cows : 10 cows = 1click/s. But early cows are expensive. Cow obtention is superlinear or exponential[?] over time
+Cow clicks are lost if task speed is low (say 5s when cows click every 1s)
+However, task speed also should go up, so that player ensures cow clicks aren't lost
+
+At what point should cow work be more effective than human work ? What should be the income ratio of fully manual vs fully automatic?
+
+------ Theme, Renaming things
+
+Level =>
+
+----------
 
