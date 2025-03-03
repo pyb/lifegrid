@@ -1,45 +1,64 @@
-export enum Resource {
+export enum Item {
     Dollar,
+    
     Companion,
+    Cow,
+    
     Tool,
+    Knife,
+    Shovel,
+    
     Farm,
-    Crop,
-}
 
-export enum Task {
+
+    Crop,
+    Lettuce,
+    Coffee,
+
+
     Work,
     Build,
     Level,
 }
 
-export type Item = Resource | Task;
+export type ResourceCost = {
+    input: Array<[number, number]>, // [item, n]
+    output: [number, number],
+}
 
-export type R = Resource;
-export type T = Task;
+export const I = Item;
+
 
 export type ResourceInfo = {
+    Resource: number,
     n: number,
     active: boolean,
     progress: number, // in %
-    velocity: number, // in % / ms
 };
 
 export type TaskInfo = {
+    task: number,
     active: boolean,
     progress: number, // in %
-    velocity: number, // in % / ms
     level?: number, // maybe use this
 };
 
-export type ResourceCost = Array<[Resource, number]>;
+
+export type Rates = {
+    resourceCosts: Map<number, Array<[number, number]>>,
+    taskProduction: Map<number, Array<[number, number]>>,
+    nTasks: number,
+    taskVelocity: Map<number, number>,
+    resourceGeneration: Map<number, number>,
+}
 
 export type GameState = {
-    resources: Map<Resource, ResourceInfo>,
+    resources: Map<number, ResourceInfo>,
     ongoing: {
         tasks: Array<TaskInfo>,
-        resources: Array<ResourceInfo>
+        resources: Map<number, ResourceInfo>,
     },
-    clicked: Array<Item>; // all that was clicked within the last tick
+    clicked: Array<number>; // all that was clicked within the last tick
 };
 export type State = GameState;
 

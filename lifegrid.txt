@@ -1,10 +1,41 @@
 V2 "Spec":
 ----
 
+
 ----------
 
 Tomorrow : 1) focus on the maybe hard part (?) : finding clean structure for the "evolving costs and rates" part
 2) Maybe Review design, find additional "fun"
+
+
+
+----
+
+
+Data model:
+
+Resources can have:
+-Constant generation
+-Cost : resource->resource
+-Task generation
+
+Furthermore One task autostarts and has variable growth rate.
+
+All these depend on resource levels (and any other variables, or not ! Important!)
+
+
+The solution?
+Let's call that "the build" or "the rates" : what determines the numbers above. I think it's just "resources"
+function computeBuild(resources, <any other args>)
+This even could be a hardcoded function in data.ts
+"the build" It' probably the wrong word. It's more like the effect of a build
+
+nTasks
+resource growth
+Resource cost in terms of other resources
+Speed of each Task
+
+
 
 -----------------------------------
 
