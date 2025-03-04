@@ -1,5 +1,5 @@
 import * as Types from "@/app/game/types"
-import {Item, ResourceInfo, ResourceCost, TaskInfo, State, Rates} from "@/app/game/types"
+import {Item, State} from "@/app/game/types"
 
 
 /***********************/
@@ -64,6 +64,8 @@ const nTasks = (n: number, cropType:number):number => {
     I/O
     [[I.Dollar, 100] [I.Cow, 1]]
 */
+
+/*
 const resourceCosts:Array<ResourceCost> = [
     {input: [[Item.Dollar, 100], [Item.Cow,1]], output:[Item.Farm, 1]},
     
@@ -79,13 +81,19 @@ export const resolveBuild = (build: Map<number, ResourceInfo>):Rates => {
     }
     return result;
 }
+*/
+
 /*****************************************/
 
+export const tick = 50;
+
 export const initialGameState:Types.GameState = {
-    resources: new Map<number, ResourceInfo>(),
+    //resources: new Map<number, ResourceInfo>(),
+    resources: new Map<number, number>()
+    /*
     ongoing: {
         tasks: [{task: Item.Level, active:true, progress: 0}],
         resources: new Map<number, ResourceInfo>(),
     },
-    clicked: [],
+    */
 }
