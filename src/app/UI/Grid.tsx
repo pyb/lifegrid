@@ -11,66 +11,20 @@ interface GridItemProps {
     onClick: () => void,
 };
 
-// for later
 const GridItem = ({name, text, hoverText, progress, style, onClick}:GridItemProps) => {
     return (
         <div className={styles.item} onClick={onClick}>
-            {name + " / " + text}
+            {name + " / " + text + " ( " + progress.toString() + " ) "}
         </div>
     );
 }
 
-interface TaskItemProps {
-    name: string,
-    task: number,
-    gs: GameState,
-};
-
-const TaskItem = ({name, task, gs}:TaskItemProps) => {
+const item = (name:string, resource:number|undefined, task:number|undefined, gs:GameState, onClick: () => void, key:number) => {
     const progress:number = 0.4;
-    return (
-        <div className={styles.item}>
-            {name + " : " + progress.toString()}
-        </div>
-    );
+    return <GridItem key={key} name={name} onClick={onClick} progress={progress} text="" hoverText="" style=""/>
 }
 
-interface ResourceItemProps {
-    name: string,
-    resource: number,
-    gs: GameState,
-};
 
-const ResourceItem = ({name, resource, gs}:ResourceItemProps) => {
-    const progress:number = 0.4;
-    return (
-        <div className={styles.item}>
-            {name + " : " + progress.toString()}
-        </div>
-    );
-}
-
-interface GridProps {
-    side: number,
-    gs:GameState,
-};
-
-const itemList = (side: number, gs: GameState) => {
-    if (side == 0)
-        return [
-            <ResourceItem name="Dollar" resource={Item.Dollar} gs={gs} />,
-            <ResourceItem name="Farm" resource={Item.Farm} gs={gs} />,
-            <ResourceItem name="Tool" resource={Item.Tool} gs={gs} />,
-            <ResourceItem name="Cow" resource={Item.Cow} gs={gs} />,
-            <ResourceItem name="Wheat" resource={Item.Wheat} gs={gs} />,
-        ];
-    else
-        return [
-            <TaskItem name="Work" task={Item.Work} gs={gs}/>,
-            <TaskItem name="Build" task={Item.Build} gs={gs}/>,
-            <TaskItem name="Level" task={Item.Lettuce} gs={gs}/>,
-    ];
-}
 
 const ResourceGrid = ({items}:{items:Array<React.ReactNode>}) => {
     return (
@@ -93,10 +47,30 @@ const TaskGrid = ({items}:{items:Array<React.ReactNode>}) => {
     );
 }
 
-const Grid = ({side, gs}:GridProps) => {
+interface GridProps {
+    side: number,
+    gs:GameState,
+    onClick: (item:number) => void,
+};
+
+const itemClickCallback = (onClick:(item:number) => void, item:number) => {
+    return () => onClick(item);
+}
+
+const Grid = ({side, gs, onClick}:GridProps) => {
   return (side == 0 ? 
-    <ResourceGrid items={itemList(side, gs)} /> :
-    <TaskGrid items={itemList(side, gs)} /> );
+    <ResourceGrid items= {[
+        item("Dollar", Item.Dollar, undefined, gs, itemClickCallback(onClick, Item.Dollar), 0),
+        item("Farm", Item.Farm, undefined, gs, itemClickCallback(onClick, Item.Farm), 1),
+        item("Tool", Item.Tool, undefined, gs, itemClickCallback(onClick, Item.Tool), 2),
+        item("Cow", Item.Cow, undefined, gs, itemClickCallback(onClick, Item.Cow), 3),
+        item("Wheat", Item.Wheat, undefined, gs, itemClickCallback(onClick, Item.Wheat), 4),
+    ]} /> :
+    <TaskGrid items={[
+        item("Work", undefined, Item.Work, gs, itemClickCallback(onClick, Item.Work), 10),
+        item("Build", undefined, Item.Build, gs, itemClickCallback(onClick, Item.Build), 11),
+        item("Level", undefined, Item.Level, gs, itemClickCallback(onClick, Item.Level), 12),
+    ]} />);
 }
 
 export default Grid;

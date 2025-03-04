@@ -13,10 +13,14 @@ import Grid from "UI/Grid"
 const Main = () => {
     const [GS, setGS] = useImmer<Types.GameState>(Data.initialGameState);
 
+    const onClick = (item:number) => {
+        console.log("clicked " + item.toString())
+    }
+
     return (
         <div className={styles.gameMain}>
-            <Grid side={0} gs={GS}/>
-            <Grid side={1} gs={GS}/>
+            <Grid side={0} gs={GS} onClick={onClick}/>
+            <Grid side={1} gs={GS} onClick={onClick}/>
         </div>
     )
 }
