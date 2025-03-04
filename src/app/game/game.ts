@@ -1,5 +1,5 @@
 import * as Types from "@/app/game/types"
-import {Item, ResourceInfo, State, Update, Rates} from "@/app/game/types"
+import {Item, State, Update} from "@/app/game/types"
 import * as Data from "game/data"
 
 
@@ -22,8 +22,7 @@ const gameLoop = (delta:number):Update => (gs: State) => {
 
     for (const [resource, rate] of Data.resolveBuild(gs.resources).resourceGeneration) {
         const gain = rate * delta;
-        const info =  <ResourceInfo>gs.resources.get(resource);
-        info.n += gain; // TODO : will n be writable?
+        // increase resource
     }
 
     // Handle Clicks here?

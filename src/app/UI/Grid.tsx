@@ -60,9 +60,9 @@ const itemList = (side: number, gs: GameState) => {
         return [
             <ResourceItem name="Dollar" resource={Item.Dollar} gs={gs} />,
             <ResourceItem name="Farm" resource={Item.Farm} gs={gs} />,
-            <ResourceItem name="Farm" resource={Item.Farm} gs={gs} />,
-            <ResourceItem name="Farm" resource={Item.Farm} gs={gs} />,
-            <ResourceItem name="Farm" resource={Item.Farm} gs={gs} />,
+            <ResourceItem name="Tool" resource={Item.Tool} gs={gs} />,
+            <ResourceItem name="Cow" resource={Item.Cow} gs={gs} />,
+            <ResourceItem name="Wheat" resource={Item.Wheat} gs={gs} />,
         ];
     else
         return [
