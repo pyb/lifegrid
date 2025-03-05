@@ -206,9 +206,22 @@ Level =>
 
 ----------
 
-Struggling to keep whole thing in my head !...
-=> High level features / Code structure.
+* High level features / Code structure.
 
+Click / settimeout management
+[done]
+
+Views : gs (build) =>
+ X task speeds (clicked)
+ X special : level task speed
+ X resource generation rate
+ X task outcome
+ X Resource costs
+[done] 
+
+on click
+ => check if resource available / task possible, and start it
+[done]
 
 Render (tsx)
  => progress
@@ -216,30 +229,20 @@ Render (tsx)
  => ... ? 
 [finish later]
 
-Click / settimeout management
- [done]
-
-on click
- => check if resource available / task possible, and start it
-[done]
-
-Views : gs (build) =>
- X task speeds (clicked)
- X special : level task speed
- X resource generation rate
- task outcome
- X Resource costs
-[] 
-
 gameLoop
+ X click
  task progress / outcome
  resource progress / completion
  resource generation
 []
 
+----
+
 Level up
-[] 
-[Prestige up]
+[Phase 2] 
+
+Prestige
+[Phase 3]
 
 -----
 

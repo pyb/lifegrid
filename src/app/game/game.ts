@@ -10,8 +10,8 @@ const isTask = (item:number):boolean => Data.tasks.has(item);
 const levelUp:Update = (gs:State) => {
     gs.taskProgress.delete(Item.Level); // should happen elsewhere
     gs.level++;
-    // todo
-
+    gs.taskProgress.set(Item.Level, 0); // start the next one
+    // todo : level up resources
 } 
 
 const build:Update = (gs:State) => {
@@ -26,7 +26,6 @@ const work:Update = (gs:State) => {
     const dollar = <number>gs.resources.get(Item.Dollar);
     gs.resources.set(Item.Dollar, dollar + Data.workReturn);
 }
-
 
 // Task outcome
 const completeTask = (task:number):Update => {
@@ -83,20 +82,34 @@ const resourceClick = (item:number):Update => {
     }
 }
 
-export const resolveClick = (item:Item):Update => {
+let lastUpdate:number = Date.now();
+let lastClicked:number = Types.Item.None;
+
+export const onClick = (item: number) => {
+    if (lastClicked == Types.Item.None) {
+        lastClicked = item;
+    }
+}
+export const resolveClick = ():Update => {
+    const item:number = lastClicked;
+    lastClicked = Types.Item.None;
     return isTask(item) ? taskClick(item) : resourceClick(item);
 }
 
-export const gameLoop = (delta:number):Update => (gs: State) => {
+export const gameLoop = (): Array<Update> => {
+    const time: number = Date.now();
+    const delta = time - lastUpdate; // in ms
+    lastUpdate = time;
+    const updates: Array<Update> = [];
+    
+    updates.push(resolveClick());
+
+    // Task progress + completion
+
+    // Resource progress + completion
+
     // Resource Generation
-    // Task, resource progress
-    // Task Autoclick
-    /*
-    for (const [resource, rate] of Data.resolveBuild(gs.resources).resourceGeneration) {
-        const gain = rate * delta;
-        // increase resource
-    }
 
-    */
-
+    // Phase 2: Task Autoclick 
+    return updates;
 }

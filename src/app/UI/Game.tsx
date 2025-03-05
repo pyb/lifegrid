@@ -14,28 +14,13 @@ import Grid from "UI/Grid"
 const Main = () => {
     const [GS, setGS] = useImmer<Types.State>(Data.initialGameState);
     const [doProcessInterval, setDoProcessInterval] = React.useState<boolean>(false);
-    const lastClicked = React.useRef<number>(Types.Item.None); // ref bc we only process this every tick
     const intervalId = React.useRef<number>(0);
-    const lastUpdate = React.useRef<number>(Date.now());
 
     if (doProcessInterval) {
         setDoProcessInterval(false);
-        const time:number = Date.now();
-        const delta = time - lastUpdate.current; // in ms
-        lastUpdate.current = time;
-        let update:Types.Update = Game.gameLoop(delta);
-        if (update)
+        const loopUpdates:Array<Types.Update> = Game.gameLoop();
+        for (const update of loopUpdates)
             setGS(update);
-        update = Game.resolveClick(lastClicked.current);
-        if (update)
-            setGS(update);
-        lastClicked.current = Types.Item.None;
-    }
-
-    const onClick = (item:number) => {
-        if (lastClicked.current == Types.Item.None) {
-            lastClicked.current = item;
-        }
     }
 
     React.useEffect(() => {
@@ -48,8 +33,8 @@ const Main = () => {
 
     return (
         <div className={styles.gameMain}>
-            <Grid side={0} gs={GS} onClick={onClick}/>
-            <Grid side={1} gs={GS} onClick={onClick}/>
+            <Grid side={0} gs={GS} onClick={Game.onClick}/>
+            <Grid side={1} gs={GS} onClick={Game.onClick}/>
         </div>
     )
 }
