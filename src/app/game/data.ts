@@ -11,8 +11,8 @@ export const tasks = new Set<number>([Item.Build, Item.Level, Item.Work]);
 export const tools = new Set<number>([Item.Spoon, Item.Knife, Item.Shovel]);
 export const crops = new Set<number>([Item.Lettuce, Item.Wheat, Item.Coffee]);
 
-const defaultInitialLevelVelocity = 0.00000001;
-const initialLevelVelocities:Array<number> = [0.0001, 0.000001, 0.00001];
+const defaultInitialLevelVelocity = 0.0001;
+const initialLevelVelocities:Array<number> = [0.3, 0.01, 0.003];
 
 const nTasks = (gs:State):number => {
     return 1;
@@ -20,6 +20,7 @@ const nTasks = (gs:State):number => {
 
 export const taskGoal = 100;
 
+const levelFarmFactor = 1;
 const sellCropRate = .1;
 
 export const cropDollarConversion = new Map<number, number> ([
@@ -39,10 +40,6 @@ export const growthRate = (item:number, gs:State):number => {
         {
             rate = sellCropRate * <number>cropDollarConversion.get(item);
         }
-    }
-    else if (item == Item.Level)
-    {
-        rate = initialLevelVelocities[gs.level] || defaultInitialLevelVelocity;
     }
     else if (crops.has(item))
     {
@@ -68,24 +65,27 @@ export const workReturn = (gs:State):number => {
     return 100;
 }
 
+// reminder : task completion goal is 100
 export const taskSpeed = (task:number, gs:State):number => {
-    let duration:number = NaN;
+    let speed:number = NaN;
     switch (task) {
         case Item.Work:
-            duration = 5;
+            speed = 25;
             break;
         case Item.Build:
             // design choice : constant for now.
             // Maybe divide by (2^(toolLevel-1)) later on ?
-            duration = 4;
+            speed = 15;
             break;
         case Item.Level:
-            duration = 1000;
+            // What factors influence this? Farms. (and maybe cows, or sth else but that's not currently the intention)
+            speed = (initialLevelVelocities[gs.level] || defaultInitialLevelVelocity)
+                    + levelFarmFactor * <number>gs.resources.get(Item.Farm);
             break;
         default:
             throw new Error("Bug : task " + task.toString() + " unknown.");
     }
-    return duration;
+    return speed;
 }
 
 const farmCost = 1000;

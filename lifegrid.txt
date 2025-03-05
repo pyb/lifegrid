@@ -232,8 +232,8 @@ on click
 
 Views : gs (build) =>
  X compute resource growth rates 
- task speeds (clicked)
- special : level task speed
+ X task speeds (clicked)
+ X special : level task speed
  resource generation rate
 [] 
 
