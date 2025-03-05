@@ -1,5 +1,5 @@
 import * as Types from "@/app/game/types"
-import {Item, State, ResourceCost} from "@/app/game/types"
+import {Item, State, Update, ResourceCost} from "@/app/game/types"
 
 // Put everything purely numerical in Params object?
 
@@ -62,9 +62,7 @@ export const growthRate = (item:number, gs:State):number => {
     return rate;
 }
 
-export const workReturn = (gs:State):number => {
-    return 100;
-}
+export const workReturn = 100;
 
 // reminder : task completion goal is 100
 export const taskSpeed = (task:number, gs:State):number => {

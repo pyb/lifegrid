@@ -228,7 +228,7 @@ Views : gs (build) =>
  X special : level task speed
  X resource generation rate
  task outcome
- Resource costs
+ X Resource costs
 [] 
 
 gameLoop

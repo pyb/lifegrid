@@ -6,9 +6,42 @@ import * as Data from "game/data"
 
 const isTask = (item:number):boolean => Data.tasks.has(item);
 
-const completeTask = (task:number):Update => (gs:State) => {
-    gs.taskProgress.delete(task);
+
+const levelUp:Update = (gs:State) => {
+    gs.taskProgress.delete(Item.Level); // should happen elsewhere
+    gs.level++;
     // todo
+
+} 
+
+const build:Update = (gs:State) => {
+    gs.taskProgress.delete(Item.Build); // should happen elsewhere
+    const toolType:number = gs.tool;
+    const tool = <number>gs.resources.get(toolType);
+    gs.resources.set(toolType, tool + 1);
+}
+
+const work:Update = (gs:State) => {
+    gs.taskProgress.delete(Item.Work); // should happen elsewhere
+    const dollar = <number>gs.resources.get(Item.Dollar);
+    gs.resources.set(Item.Dollar, dollar + Data.workReturn);
+}
+
+
+// Task outcome
+const completeTask = (task:number):Update => {
+    switch (task) {
+        case Item.Work:
+            return work;
+            break;
+        case Item.Build:
+            return build;
+            break;
+        case Item.Level:
+            return levelUp;
+        default:
+            throw new Error("Bug : task " + task.toString() + " does not exist !");
+    }
 }
 
 const taskClick = (item:number):Update => {
