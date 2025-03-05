@@ -1,26 +1,35 @@
 export enum Item {
     None,
+    
+    Work,
+    Build,
+    Level,
+
     Dollar,
     
+    Farm,
+
     Companion,
     Cow,
+    Sheep,
+    Collie,
+    Retriever,
     
+
     Tool,
+    // Level 1
     Spoon,
     Knife,
     Shovel,
-    
-    Farm,
+    // Level 2
+    Drill,
+    Bulldozer,
 
     Crop,
     Potato,
     Wheat,
     Lettuce,
-    Coffee,
-
-    Work,
-    Build,
-    Level,
+    Coffee,   
 }
 
 export type State = {

@@ -72,7 +72,7 @@ const Grid = ({side, gs, onClick}:GridProps) => {
         item("Farm", Item.Farm, undefined, gs, itemClickCallback(onClick, Item.Farm), 1),
         item("Spoon", Item.Tool, undefined, gs, itemClickCallback(onClick, Item.Tool), 2),
         item("Cow", Item.Cow, undefined, gs, itemClickCallback(onClick, Item.Cow), 3),
-        item("Lettuce", Item.Wheat, undefined, gs, itemClickCallback(onClick, Item.Wheat), 4),
+        item("Potato", Item.Potato, undefined, gs, itemClickCallback(onClick, Item.Potato), 4),
     ]} /> :
     <TaskGrid items={[
         item("Work", undefined, Item.Work, gs, itemClickCallback(onClick, Item.Work), 10),

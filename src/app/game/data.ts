@@ -10,6 +10,7 @@ export const resourcePrices = new Map<number, Array<[number, number]>>([
 export const tasks = new Set<number>([Item.Build, Item.Level, Item.Work]);
 export const tools = new Set<number>([Item.Spoon, Item.Knife, Item.Shovel]);
 export const crops = new Set<number>([Item.Lettuce, Item.Wheat, Item.Coffee]);
+export const companions = new Set<number>([Item.Cow, Item.Retriever, Item.Collie, Item.Sheep]);
 
 const defaultInitialLevelVelocity = 0.0001;
 const initialLevelVelocities:Array<number> = [0.3, 0.01, 0.003];
@@ -91,6 +92,18 @@ export const taskSpeed = (task:number, gs:State):number => {
 const farmCost = 1000;
 
 export const toolGoal = 10;
+
+export const resourceCosts = (resource:number):number => {
+    let cost = NaN;
+    if (resource == Item.Farm)
+    {
+        cost = farmCost;
+    }
+    else if (companions.has(resource)) {
+
+    }
+    return cost;
+}
 
 export const tick = 50;
 

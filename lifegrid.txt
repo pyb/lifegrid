@@ -175,20 +175,8 @@ Lvl2: drill,..., bulldozer...
 Crop Level:
 1:Potato 2:Corn 3:Rice...
 
------- Certainty line
 
-Cows/Workhorse/Companion/Pet = automation speed
-Automate what ? Latest clicked
-Autoclick rate: 
-
-Level speed? function of Farms, maybe Cow
---- Hypothesis - bc I don't know what the game will want.
-
-Cows drive automation.
-Other pets behave qualitatively differently.
---
-
-Design :
+Cows, companion :
 1 cow does 1 work click every 10s
 1 cow work = 1$, human work = 100$. Different progress colors!
 Clicks linear with cows : 10 cows = 1click/s. But early cows are expensive. Cow obtention is superlinear or exponential[?] over time
@@ -197,7 +185,15 @@ However, task speed also should go up, so that player ensures cow clicks aren't 
 
 At what point should cow work be more effective than human work ? What should be the income ratio of fully manual vs fully automatic?
 
-------
+Level speed? function of Farms, maybe Cow
+
+Cow cost/creation?
+
+------ Certainty line
+
+Cows drive automation. However, other pets may behave qualitatively differently.
+
+-----
 
 To do : resource build speed? Not addressed (Farm build speed, anything else?)
 Let's make it initially "fast enough that it's not an issue", but still not infinite
@@ -231,15 +227,15 @@ on click
 [done]
 
 Views : gs (build) =>
- X compute resource growth rates 
  X task speeds (clicked)
  X special : level task speed
- resource generation rate
+ X resource generation rate
+ Resource costs
 [] 
 
 gameLoop
- task progress
- resource progress
+ task progress / outcome
+ resource progress / completion
  resource generation
 []
 
@@ -249,32 +245,20 @@ Level up
 
 -----
 
-Task speed design:
-Fixed goal 100, aka taskGoal
-
------
-
 
 Phase 2:
 Views => task autoclick rate
 gameLoop =>  task autoclick
-in gamelopp: stop selling crops if crop < 1
-
-
-----
-
-Special features
+in gameloop: stop selling crops if crop < 1
 
 Crop can sell to dollars (modal, click on/off)
-Level task is special
+Level task is special. What affects growth?
+Render
 
 -----
 
-
----
 
 Do Farms get upgraded wrt Level?
 
 ----
 
-Render: Can complete last ? no need for all the info at first.
