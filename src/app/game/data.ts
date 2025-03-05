@@ -51,6 +51,13 @@ Build creates
 
 */
 
+export const resourcePrices = new Map<number, Array<[number, number]>>([
+    [Item.Farm, [[Item.Dollar, 1000]]],
+]);
+
+export const tasks = new Set<number>([Item.Build, Item.Level, Item.Work]);
+export const tools = new Set<number>([Item.Spoon, Item.Knife, Item.Shovel]);
+
 const defaultInitialLevelVelocity = 0.00000001;
 const initialLevelVelocities:Array<number> = [0.0001, 0.000001, 0.00001];
 
@@ -83,13 +90,26 @@ export const resolveBuild = (build: Map<number, ResourceInfo>):Rates => {
 }
 */
 
+export const computeGrowthRates = (gs:State):Map<number, number> => {
+    const result = new Map<number, number>();
+    // resources
+    result.set(Item.Dollar, 1);
+    result.set(Item.Lettuce, 1);
+
+    // special task
+    result.set(Item.Tool, 0);
+    return result;
+}
 /*****************************************/
 
 export const tick = 50;
 
 export const initialGameState:Types.GameState = {
     //resources: new Map<number, ResourceInfo>(),
-    resources: new Map<number, number>()
+    resources: new Map<number, number>(),
+    resourceProgress : new Map<number, number>(),
+    taskProgress : new Map<number, number>(),
+    maxTasks: 1,
     /*
     ongoing: {
         tasks: [{task: Item.Level, active:true, progress: 0}],

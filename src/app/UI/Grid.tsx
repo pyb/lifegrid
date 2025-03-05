@@ -1,30 +1,36 @@
 import styles from "css/grid.module.css"
-import { GameState, Item } from "../game/types";
+import { GameState, Item } from "game/types";
+import * as Data  from "game/data";
 
 interface GridItemProps {
     name: string,
-    // picture for companion
+    qty?: number,
     text: string,
     hoverText: string,
     progress: number,
     style: string,
+    active: boolean,
     onClick: () => void,
+    // picture ?
 };
 
-const GridItem = ({name, text, hoverText, progress, style, onClick}:GridItemProps) => {
+const GridItem = ({name, qty, text, hoverText, progress, style, onClick}:GridItemProps) => {
     return (
         <div className={styles.item} onClick={onClick}>
-            {name + " / " + text + " ( " + progress.toString() + " ) "}
+            {name + (qty ? (" : " + qty?.toString()) : "") + text}
+            {" ( " + progress.toString() + " ) "}
         </div>
     );
 }
 
 const item = (name:string, resource:number|undefined, task:number|undefined, gs:GameState, onClick: () => void, key:number) => {
-    const progress:number = 0.4;
-    return <GridItem key={key} name={name} onClick={onClick} progress={progress} text="" hoverText="" style=""/>
+    const id = (resource||task) as number; 
+    const progress:number = gs.taskProgress.get(id) || 0;
+    const active:boolean = gs.taskProgress.has(id);
+    const qty = gs.resources.get(id);
+    const text:string = Data.tools.has(id) ? " / 100 " : ""; 
+    return <GridItem key={key} name={name} qty={qty} onClick={onClick} active={active} progress={progress} text={text} hoverText="" style=""/>
 }
-
-
 
 const ResourceGrid = ({items}:{items:Array<React.ReactNode>}) => {
     return (
@@ -62,9 +68,9 @@ const Grid = ({side, gs, onClick}:GridProps) => {
     <ResourceGrid items= {[
         item("Dollar", Item.Dollar, undefined, gs, itemClickCallback(onClick, Item.Dollar), 0),
         item("Farm", Item.Farm, undefined, gs, itemClickCallback(onClick, Item.Farm), 1),
-        item("Tool", Item.Tool, undefined, gs, itemClickCallback(onClick, Item.Tool), 2),
+        item("Spoon", Item.Tool, undefined, gs, itemClickCallback(onClick, Item.Tool), 2),
         item("Cow", Item.Cow, undefined, gs, itemClickCallback(onClick, Item.Cow), 3),
-        item("Wheat", Item.Wheat, undefined, gs, itemClickCallback(onClick, Item.Wheat), 4),
+        item("Lettuce", Item.Wheat, undefined, gs, itemClickCallback(onClick, Item.Wheat), 4),
     ]} /> :
     <TaskGrid items={[
         item("Work", undefined, Item.Work, gs, itemClickCallback(onClick, Item.Work), 10),

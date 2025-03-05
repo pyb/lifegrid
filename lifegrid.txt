@@ -182,7 +182,6 @@ Automate what ? Latest clicked
 Autoclick rate: 
 
 Level speed? function of Farms, maybe Cow
-
 --- Hypothesis - bc I don't know what the game will want.
 
 Cows drive automation.
@@ -198,9 +197,57 @@ However, task speed also should go up, so that player ensures cow clicks aren't 
 
 At what point should cow work be more effective than human work ? What should be the income ratio of fully manual vs fully automatic?
 
+------
+
+To do : resource build speed? Not addressed (Farm build speed, anything else?)
+Let's make it initially "fast enough that it's not an issue", but still not infinite
+
+and prestige mechanic?
+ How do I prestige?
+ A better companion is supplied.
+ What's the new goal revealed? I need to see an objective I hadn't seen before.
+
 ------ Theme, Renaming things
 
 Level =>
 
 ----------
 
+Struggling to keep whole thing in my head !...
+=> High level features / Code structure.
+
+
+
+Render (tsx)
+ => progress
+ => text, hover costs, info...
+ => ... ? 
+[finish later]
+
+Click / settimeout management
+ [done]
+
+Views : gs (build) =>
+ compute resource growth rates
+ task speeds (clicked)
+ special : level task speed
+ task autoclick rate
+[] 
+
+on click
+ => check if resource available / task possible, and get it
+[done for 1 task. Do 1 resource next]
+
+gameLoop 
+ resource generation
+ task autoclick
+[]
+
+Level up
+[] 
+[Prestige up]
+
+
+----
+
+Render: Can complete last ? no need for all the info at first.

@@ -6,6 +6,7 @@ export enum Item {
     Cow,
     
     Tool,
+    Spoon,
     Knife,
     Shovel,
     
@@ -22,7 +23,10 @@ export enum Item {
 }
 
 export type GameState = {
-    resources: Map<number, number>,
+    resources: Map<number, number>, // resource, qty
+    resourceProgress: Map<number, number>, // resource, progress
+    taskProgress: Map<number, number>, // task, progress
+    maxTasks: number,
 };
 export type State = GameState;
 

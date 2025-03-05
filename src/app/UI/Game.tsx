@@ -33,11 +33,11 @@ const Main = () => {
     }
 
     const onClick = (item:number) => {
-        //console.log("clicked " + item.toString())
         if (lastClicked.current == Types.Item.None) {
             lastClicked.current = item;
         }
     }
+    
     React.useEffect(() => {
         intervalId.current = window.setInterval(() => setDoProcessInterval(true),
             Data.tick);
