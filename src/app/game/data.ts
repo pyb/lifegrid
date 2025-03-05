@@ -65,28 +65,6 @@ export const growthRate = (item:number, gs:State):number => {
 export const workReturn = 100;
 
 // reminder : task completion goal is 100
-export const taskSpeed = (task:number, gs:State):number => {
-    let speed:number = NaN;
-    switch (task) {
-        case Item.Work:
-            speed = 25;
-            break;
-        case Item.Build:
-            // design choice : constant for now.
-            // Maybe divide by (2^(toolLevel-1)) later on ?
-            speed = 15;
-            break;
-        case Item.Level:
-            // What factors influence this? Farms. (and maybe cows, or sth else but that's not currently the intention)
-            speed = (initialLevelVelocities[gs.level] || defaultInitialLevelVelocity)
-                    + levelFarmFactor * <number>gs.resources.get(Item.Farm);
-            break;
-        default:
-            throw new Error("Bug : task " + task.toString() + " unknown.");
-    }
-    return speed;
-}
-
 export const taskSpeeds = (gs:State):Map<number, number> => {
     const result = new Map<number, number>();
     let task:number;

@@ -225,9 +225,8 @@ on click
 
 gameLoop
  X click
- task progress / outcome
- resource progress / completion
- resource generation
+ X task progress / outcome
+ X resource generation
 []
 
 Render (tsx)
@@ -238,9 +237,10 @@ Render (tsx)
 
 
 ----
-
-Level up
 [Phase 2] 
+Progressive Resource acquisition
+Level up
+
 
 Prestige
 [Phase 3]
