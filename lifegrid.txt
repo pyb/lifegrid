@@ -217,7 +217,6 @@ Struggling to keep whole thing in my head !...
 => High level features / Code structure.
 
 
-
 Render (tsx)
  => progress
  => text, hover costs, info...
@@ -227,26 +226,54 @@ Render (tsx)
 Click / settimeout management
  [done]
 
+on click
+ => check if resource available / task possible, and start it
+[done]
+
 Views : gs (build) =>
- compute resource growth rates
+ X compute resource growth rates 
  task speeds (clicked)
  special : level task speed
- task autoclick rate
+ resource generation rate
 [] 
 
-on click
- => check if resource available / task possible, and get it
-[done for 1 task. Do 1 resource next]
-
-gameLoop 
+gameLoop
+ task progress
+ resource progress
  resource generation
- task autoclick
 []
 
 Level up
 [] 
 [Prestige up]
 
+-----
+
+Task speed design:
+Fixed goal 100, aka taskGoal
+
+-----
+
+
+Phase 2:
+Views => task autoclick rate
+gameLoop =>  task autoclick
+in gamelopp: stop selling crops if crop < 1
+
+
+----
+
+Special features
+
+Crop can sell to dollars (modal, click on/off)
+Level task is special
+
+-----
+
+
+---
+
+Do Farms get upgraded wrt Level?
 
 ----
 

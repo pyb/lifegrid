@@ -1,6 +1,8 @@
 import styles from "css/grid.module.css"
-import { GameState, Item } from "game/types";
+import { State, Item } from "game/types";
 import * as Data  from "game/data";
+
+// TODO : crop selling is modal / different color for each mode
 
 interface GridItemProps {
     name: string,
@@ -23,12 +25,12 @@ const GridItem = ({name, qty, text, hoverText, progress, style, onClick}:GridIte
     );
 }
 
-const item = (name:string, resource:number|undefined, task:number|undefined, gs:GameState, onClick: () => void, key:number) => {
+const item = (name:string, resource:number|undefined, task:number|undefined, gs:State, onClick: () => void, key:number) => {
     const id = (resource||task) as number; 
     const progress:number = gs.taskProgress.get(id) || 0;
     const active:boolean = gs.taskProgress.has(id);
     const qty = gs.resources.get(id);
-    const text:string = Data.tools.has(id) ? " / 100 " : ""; 
+    const text:string = Data.tools.has(id) ? " / " + Data.toolGoal.toString() : ""; 
     return <GridItem key={key} name={name} qty={qty} onClick={onClick} active={active} progress={progress} text={text} hoverText="" style=""/>
 }
 
@@ -55,7 +57,7 @@ const TaskGrid = ({items}:{items:Array<React.ReactNode>}) => {
 
 interface GridProps {
     side: number,
-    gs:GameState,
+    gs: State,
     onClick: (item:number) => void,
 };
 

@@ -6,6 +6,11 @@ import * as Data from "game/data"
 
 const isTask = (item:number):boolean => Data.tasks.has(item);
 
+const completeTask = (task:number):Update => (gs:State) => {
+    gs.taskProgress.delete(task);
+    // todo
+}
+
 const taskClick = (item:number):Update => {
     return (gs:State) => {
         if (gs.taskProgress.size >= gs.maxTasks ||
@@ -50,8 +55,9 @@ export const resolveClick = (item:Item):Update => {
 }
 
 export const gameLoop = (delta:number):Update => (gs: State) => {
-    // Generation
-
+    // Resource Generation
+    // Task, resource progress
+    // Task Autoclick
     /*
     for (const [resource, rate] of Data.resolveBuild(gs.resources).resourceGeneration) {
         const gain = rate * delta;

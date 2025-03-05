@@ -12,7 +12,7 @@ import * as Game from "game/game"
 import Grid from "UI/Grid"
 
 const Main = () => {
-    const [GS, setGS] = useImmer<Types.GameState>(Data.initialGameState);
+    const [GS, setGS] = useImmer<Types.State>(Data.initialGameState);
     const [doProcessInterval, setDoProcessInterval] = React.useState<boolean>(false);
     const lastClicked = React.useRef<number>(Types.Item.None); // ref bc we only process this every tick
     const intervalId = React.useRef<number>(0);
@@ -23,7 +23,7 @@ const Main = () => {
         const time:number = Date.now();
         const delta = time - lastUpdate.current; // in ms
         lastUpdate.current = time;
-        let update:Types.GameStateUpdate = Game.gameLoop(delta);
+        let update:Types.Update = Game.gameLoop(delta);
         if (update)
             setGS(update);
         update = Game.resolveClick(lastClicked.current);
@@ -37,7 +37,7 @@ const Main = () => {
             lastClicked.current = item;
         }
     }
-    
+
     React.useEffect(() => {
         intervalId.current = window.setInterval(() => setDoProcessInterval(true),
             Data.tick);

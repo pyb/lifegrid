@@ -13,6 +13,7 @@ export enum Item {
     Farm,
 
     Crop,
+    Potato,
     Wheat,
     Lettuce,
     Coffee,
@@ -22,13 +23,17 @@ export enum Item {
     Level,
 }
 
-export type GameState = {
+export type State = {
     resources: Map<number, number>, // resource, qty
     resourceProgress: Map<number, number>, // resource, progress
     taskProgress: Map<number, number>, // task, progress
     maxTasks: number,
+    sellCrop : boolean,
+    toolLevel: number,
+    level: number,
+    crop: number,
+    tool: number,
 };
-export type State = GameState;
 
-export type GameStateUpdate = (gs:GameState) => void;
-export type Update = GameStateUpdate;
+export type Update = (gs:State) => void;
+
