@@ -7,7 +7,7 @@ import * as Data from "game/data"
 const isTask = (item:number):boolean => Data.tasks.has(item);
 
 
-const levelUp:Update = (gs:State) => {
+const levelUp:Update = (gs:State)=> {
     gs.taskProgress.delete(Item.Level); // should happen elsewhere
     gs.level++;
     gs.taskProgress.set(Item.Level, 0); // start the next one
@@ -43,43 +43,39 @@ const completeTask = (task:number):Update => {
     }
 }
 
-const taskClick = (item:number):Update => {
-    return (gs:State) => {
-        if (gs.taskProgress.size >= gs.maxTasks ||
-            gs.taskProgress.has(item) )
-            return;
+const taskClick = (gs: State, item: number): void => {
+    if (gs.taskProgress.size >= gs.maxTasks ||
+        gs.taskProgress.has(item))
+        return;
 
-        switch(item) {
-            case Item.Level:
-                break; // noop
-            case Item.Work:
-            case Item.Build:
-                gs.taskProgress.set(item, 0);
-                break;
-            default:
-                throw new Error("Bug : task " + item.toString() + " does not exist !");
-        }
+    switch (item) {
+        case Item.Level:
+            break; // noop
+        case Item.Work:
+        case Item.Build:
+            gs.taskProgress.set(item, 0);
+            break;
+        default:
+            throw new Error("Bug : task " + item.toString() + " does not exist !");
     }
 }
 
-const resourceClick = (item:number):Update => {
-    return (gs:State) => {
-        if (gs.resourceProgress.has(item))
+const resourceClick = (gs: State, item: number):void => {
+    if (gs.resourceProgress.has(item))
+        return;
+    const costs = Data.resourcePrices.get(item);
+    if (!costs)
+        return;
+    for (const [resource, cost] of costs) {
+        const r = <number>gs.resources.get(resource);
+        if (r < cost)
             return;
-        const costs = Data.resourcePrices.get(item);
-        if (!costs)
-            return;
-        for (const [resource, cost] of costs) {
-            const r = <number>gs.resources.get(resource);
-            if (r < cost)
-                return;
-        }
-        for (const [resource, cost] of costs) {
-            const r = <number>gs.resources.get(resource);
-            gs.resources.set(resource, r - cost);
-        }
-        gs.resourceProgress.set(item, 0);
     }
+    for (const [resource, cost] of costs) {
+        const r = <number>gs.resources.get(resource);
+        gs.resources.set(resource, r - cost);
+    }
+    gs.resourceProgress.set(item, 0);
 }
 
 let lastUpdate:number = Date.now();
@@ -90,26 +86,35 @@ export const onClick = (item: number) => {
         lastClicked = item;
     }
 }
-export const resolveClick = ():Update => {
-    const item:number = lastClicked;
-    lastClicked = Types.Item.None;
-    return isTask(item) ? taskClick(item) : resourceClick(item);
-}
 
-export const gameLoop = (): Array<Update> => {
+export const gameLoop:Update = (gs:State) => {
     const time: number = Date.now();
     const delta = time - lastUpdate; // in ms
     lastUpdate = time;
-    const updates: Array<Update> = [];
     
-    updates.push(resolveClick());
+    const clicked:number = lastClicked;
+    lastClicked = Types.Item.None;
+    if (isTask(clicked))
+        taskClick(gs, clicked);
+    else
+        resourceClick(gs, clicked);
 
     // Task progress + completion
-
+    const rates: Map<number, number> = Data.taskSpeeds(gs);
+    Data.tasks.forEach((task: number) => {
+        let progress = <number>gs.taskProgress.get(task) + delta * <number>rates.get(task);
+        if (progress > Data.taskGoal) {
+            gs.taskProgress.delete(task);
+            const update:Update = completeTask(task);
+            update(gs);
+        }
+        else {
+            gs.taskProgress.set(task, progress);
+        }
+    });
     // Resource progress + completion
 
     // Resource Generation
 
     // Phase 2: Task Autoclick 
-    return updates;
 }

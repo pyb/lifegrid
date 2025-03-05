@@ -87,6 +87,28 @@ export const taskSpeed = (task:number, gs:State):number => {
     return speed;
 }
 
+export const taskSpeeds = (gs:State):Map<number, number> => {
+    const result = new Map<number, number>();
+    let task:number;
+    let speed:number;
+
+    task = Item.Work;
+    speed = 25;
+    result.set(task, speed);
+
+    task = Item.Build;
+    speed = 15;
+    result.set(task, speed);
+
+    task = Item.Level;
+    // What factors influence this? Farms. (and maybe cows, or sth else but that's not currently the intention)
+    speed = (initialLevelVelocities[gs.level] || defaultInitialLevelVelocity)
+            + levelFarmFactor * <number>gs.resources.get(Item.Farm);
+    result.set(task, speed);
+    
+    return result;
+}
+
 const farmCost:ResourceCost = {
         resource: Item.Dollar,
         cost: 1000

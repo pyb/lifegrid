@@ -223,18 +223,19 @@ on click
  => check if resource available / task possible, and start it
 [done]
 
-Render (tsx)
- => progress
- => text, hover costs, info...
- => ... ? 
-[finish later]
-
 gameLoop
  X click
  task progress / outcome
  resource progress / completion
  resource generation
 []
+
+Render (tsx)
+ => progress
+ => text, hover costs, info...
+ => ... ? 
+[finish later]
+
 
 ----
 
