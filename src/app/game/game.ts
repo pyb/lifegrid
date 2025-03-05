@@ -112,9 +112,18 @@ export const gameLoop:Update = (gs:State) => {
             gs.taskProgress.set(task, progress);
         }
     });
+
     // Resource progress + completion
+  
+    
 
     // Resource Generation
+    gs.resources.forEach((n:number, resource: number) => {
+        const rate:number = Data.growthRate(resource, gs);
+        if (!isNaN(rate)) {
+            gs.resources.set(resource, n + delta * rate);
+        }
+    });
 
     // Phase 2: Task Autoclick 
 }
