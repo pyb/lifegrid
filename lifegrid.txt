@@ -65,8 +65,6 @@ Farms has all the production
 D : automation
 
 ---------
-
-Cow makes farm quicker
 Farm produces cow (manual click)
 
 Farm costs $ and generate $
@@ -103,15 +101,14 @@ Resources can be bought via task ; or combination of other resources (multiple c
 
 -----
 
-Prestige [as opposed to level] : allow for >1 tasks?
-Or better companion with different features?
+Prestige [as opposed to level] : Vetter companion with different features. eg allow for >1 tasks?
+Can I choose 1 companion out of 3 ? bof
 
 -----------
 
 R: dollar, farm, tool, companion, crop
 
-Farm cost : 2000 or 200+cow
-(Might change role of cow below though)
+Farm cost : 2000)
 
 100 tool to upgrade -> self buy(what did i mean? Spend something to buy the same? What does that mean?)
 
@@ -230,6 +227,7 @@ Views : gs (build) =>
  X task speeds (clicked)
  X special : level task speed
  X resource generation rate
+ task outcome
  Resource costs
 [] 
 

@@ -32,6 +32,11 @@ export enum Item {
     Coffee,   
 }
 
+export type ResourceCost = {
+    resource: number,
+    cost: number,
+}
+
 export type State = {
     resources: Map<number, number>, // resource, qty
     resourceProgress: Map<number, number>, // resource, progress

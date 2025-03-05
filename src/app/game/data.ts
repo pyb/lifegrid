@@ -1,5 +1,5 @@
 import * as Types from "@/app/game/types"
-import {Item, State} from "@/app/game/types"
+import {Item, State, ResourceCost} from "@/app/game/types"
 
 // Put everything purely numerical in Params object?
 
@@ -89,18 +89,37 @@ export const taskSpeed = (task:number, gs:State):number => {
     return speed;
 }
 
-const farmCost = 1000;
+const farmCost:ResourceCost = {
+        resource: Item.Dollar,
+        cost: 1000
+    };
+
+const companionCost = new Map<number, ResourceCost>([
+    [Item.Cow,
+    {
+        resource: Item.Wheat, 
+        cost: 1000
+    }],
+    [Item.Collie,
+    {
+        resource: Item.Potato, 
+        cost: 1000
+    }],
+]);
 
 export const toolGoal = 10;
 
-export const resourceCosts = (resource:number):number => {
-    let cost = NaN;
+export const resourceCosts = (resource:number):ResourceCost|undefined => {
+    let cost:ResourceCost;
     if (resource == Item.Farm)
     {
         cost = farmCost;
     }
     else if (companions.has(resource)) {
-
+        cost = <ResourceCost>companionCost.get(resource);
+    }
+    else {
+        return undefined;
     }
     return cost;
 }
