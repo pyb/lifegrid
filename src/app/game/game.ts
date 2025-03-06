@@ -50,7 +50,6 @@ const taskClick = (item: number):Update => (gs:State) => {
         gs.taskProgress.has(item))
         return;
 
-    gs.level++;
     switch (item) {
         case Item.Level:
             break; // noop
@@ -136,7 +135,6 @@ export const gameLoop = ():Array<Update> => {
     }
  
     result.push(progressTasks(delta));
-
     result.push(generateResources(delta));
     return result;
     // Phase 2:

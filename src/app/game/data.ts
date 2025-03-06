@@ -10,7 +10,7 @@ export const companions = new Set<number>([Item.Cow, Item.Retriever, Item.Collie
 
 const defaultInitialLevelVelocity = 0.00001;
 //const initialLevelVelocities:Array<number> = [0.0005, 0.000001, 0.000003];
-const initialLevelVelocities:Array<number> = [0.003, 0.000001, 0.000003]; // testing
+const initialLevelVelocities:Array<number> = [0.005, 0.000001, 0.000003]; // testing
 
 const nTasks = (gs:State):number => {
     return 1;
@@ -44,7 +44,7 @@ export const growthRate = (item:number, gs:State):number => {
         // Crop-independent rate for now
         // Crop rate = A * Farm ^ (B * ToolLevel). Try A = 1
         // or maybe A * Farm ^ (B * ToolLevel * log(Farm) / C(Level) )
-        const A = .1;
+        const A = .001;
         const B = 1;
         const C = gs.level; // level-dependent constant TBD
         rate = A * (farms ^ ( B* gs.toolLevel * Math.log(farms) / C));
@@ -68,8 +68,8 @@ export const taskSpeeds = (gs:State):Map<number, number> => {
     let speed:number;
 
     task = Item.Work;
-    //speed = 25;
-    speed = 500; // for testing
+    speed = 25;
+    //speed = 500; // for testing
     result.set(task, speed);
 
     task = Item.Build;
@@ -80,7 +80,7 @@ export const taskSpeeds = (gs:State):Map<number, number> => {
     task = Item.Level;
     // What factors influence this? Farms. (and maybe cows, or sth else but that's not currently the intention)
     speed = (initialLevelVelocities[gs.level - 1] || defaultInitialLevelVelocity)
-            + levelFarmFactor * (gs.resources.get(Item.Farm) || 0);
+            * levelFarmFactor * Math.sqrt(gs.resources.get(Item.Farm) || 0);
     result.set(task, speed);
     
     return result;

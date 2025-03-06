@@ -16,14 +16,23 @@ interface GridItemProps {
     // picture ?
 };
 
+const color1: string = "rgb(86, 37, 37) ";
+//const color2: string = "rgb(24, 34, 29) ";
+const color2: string = "#443333";
+
+const backgroundProp = (progress:number) => { return {
+    background: "linear-gradient(to top, " + color1 + " 0 " + progress.toString()
+     + "%, " + color2 + " " + progress.toString() + "% " + (1-progress).toString() +  "%)"
+}}
+
 const GridItem = ({name, qty, text, hoverText, progress, style, onClick}:GridItemProps) => {
     return (
-        <div className={styles.item} onClick={onClick}>
+        <div className={styles.item} style={progress ? backgroundProp(progress): {}} onClick={onClick}>
             <div>
             {name + (qty ? (" : " + Math.round(qty).toString()) : "") + text}
             </div>
             <div>
-            {" ( " +  Math.round(progress*100).toString() + " ) "}
+            {" ( " +  Math.round(progress).toString() + " ) "}
             </div>
         </div>
     );

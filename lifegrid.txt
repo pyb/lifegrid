@@ -283,8 +283,8 @@ Render
 
 -----
 
-
-Do Farms get upgraded wrt Level?
+-Do Farms get upgraded wrt Level?
+-Tool : weird. I am buying tools and tool upgrade chunks at the same time?
 
 ----
 
