@@ -237,7 +237,7 @@ gameLoop
  X click
  X task progress / outcome
  X resource generation
-[]
+[done]
 
 Render (tsx)
  => progress
@@ -247,13 +247,18 @@ Render (tsx)
 
 
 ----
+
+[phase 1.5]
+Test as is. bugs?
+Colors, progress css, modal
+balance
+
 [Phase 2] 
-Progressive Resource acquisition
+Progressive Resource acquisition (what was that?)
 Level up
 
-
-Prestige
 [Phase 3]
+Prestige
 
 -----
 
