@@ -81,7 +81,7 @@ export const taskSpeeds = (gs:State):Map<number, number> => {
     task = Item.Level;
     // What factors influence this? Farms. (and maybe cows, or sth else but that's not currently the intention)
     speed = (initialLevelVelocities[gs.level] || defaultInitialLevelVelocity)
-            + levelFarmFactor * <number>gs.resources.get(Item.Farm);
+            + levelFarmFactor * (gs.resources.get(Item.Farm) || 0);
     result.set(task, speed);
     
     return result;

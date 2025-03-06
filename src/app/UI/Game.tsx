@@ -18,12 +18,7 @@ const Main = () => {
 
     if (doProcessInterval) {
         setDoProcessInterval(false);
-        /*
-        const loopUpdates:Array<Types.Update> = Game.gameLoop(setGS);
-        for (const update of loopUpdates)
-            setGS(update);
-        */
-       setGS(Game.gameLoop);
+        setGS(Game.gameLoop);
     }
 
     React.useEffect(() => {

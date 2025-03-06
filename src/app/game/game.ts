@@ -44,12 +44,10 @@ const completeTask = (task:number):Update => {
 }
 
 const taskClick = (gs: State, item: number): void => {
-    console.log(gs.taskProgress.size);
-    
     if ((gs.taskProgress.size >= gs.maxTasks) ||
         gs.taskProgress.has(item))
         return;
-    
+
     switch (item) {
         case Item.Level:
             break; // noop
@@ -103,13 +101,13 @@ export const gameLoop:Update = (gs:State) => {
             resourceClick(gs, clicked);
     }
 
-
     // Task progress + completion
     const rates: Map<number, number> = Data.taskSpeeds(gs);
     Data.tasks.forEach((task: number) => {
         if (gs.taskProgress.has(task))
         {
             let progress = <number>gs.taskProgress.get(task) + delta * <number>rates.get(task);
+          
             if (progress > Data.taskGoal) {
                 gs.taskProgress.delete(task);
                 const update:Update = completeTask(task);
