@@ -254,7 +254,9 @@ Colors, progress css, modal
 balance
 
 [Phase 2] 
-Progressive Resource acquisition (what was that?)
+Progressive Resource acquisition (what was that? it was when I click on a resource, it should not be given instantly, but there
+should be a delay with progress bar)
+autoclick
 Level up
 
 [Phase 3]

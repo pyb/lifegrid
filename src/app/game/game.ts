@@ -17,13 +17,14 @@ const levelUp:Update = (gs:State)=> {
 const build:Update = (gs:State) => {
     gs.taskProgress.delete(Item.Build); // should happen elsewhere
     const toolType:number = gs.tool;
-    const tool = <number>gs.resources.get(toolType);
+    const tool = <number>gs.resources.get(toolType) || 0;
+    console.log(tool)
     gs.resources.set(toolType, tool + 1);
 }
 
 const work:Update = (gs:State) => {
     gs.taskProgress.delete(Item.Work); // should happen elsewhere
-    const dollar = <number>gs.resources.get(Item.Dollar);
+    const dollar = <number>gs.resources.get(Item.Dollar) || 0;
     gs.resources.set(Item.Dollar, dollar + Data.workReturn);
 }
 

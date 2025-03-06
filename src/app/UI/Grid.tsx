@@ -19,8 +19,12 @@ interface GridItemProps {
 const GridItem = ({name, qty, text, hoverText, progress, style, onClick}:GridItemProps) => {
     return (
         <div className={styles.item} onClick={onClick}>
+            <div>
             {name + (qty ? (" : " + qty?.toString()) : "") + text}
+            </div>
+            <div>
             {" ( " +  Math.round(progress*100).toString() + " ) "}
+            </div>
         </div>
     );
 }
@@ -70,7 +74,7 @@ const Grid = ({side, gs, onClick}:GridProps) => {
     <ResourceGrid items= {[
         item("Dollar", Item.Dollar, undefined, gs, itemClickCallback(onClick, Item.Dollar), 0),
         item("Farm", Item.Farm, undefined, gs, itemClickCallback(onClick, Item.Farm), 1),
-        item("Spoon", Item.Tool, undefined, gs, itemClickCallback(onClick, Item.Tool), 2),
+        item("Spoon", Item.Spoon, undefined, gs, itemClickCallback(onClick, Item.Tool), 2),
         item("Cow", Item.Cow, undefined, gs, itemClickCallback(onClick, Item.Cow), 3),
         item("Potato", Item.Potato, undefined, gs, itemClickCallback(onClick, Item.Potato), 4),
     ]} /> :
