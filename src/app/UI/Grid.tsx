@@ -20,7 +20,7 @@ const GridItem = ({name, qty, text, hoverText, progress, style, onClick}:GridIte
     return (
         <div className={styles.item} onClick={onClick}>
             <div>
-            {name + (qty ? (" : " + qty?.toString()) : "") + text}
+            {name + (qty ? (" : " + Math.round(qty).toString()) : "") + text}
             </div>
             <div>
             {" ( " +  Math.round(progress*100).toString() + " ) "}

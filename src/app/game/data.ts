@@ -5,7 +5,7 @@ import {Item, State, Update, ResourceCost} from "@/app/game/types"
 
 export const tasks = new Set<number>([Item.Build, Item.Level, Item.Work]);
 export const tools = new Set<number>([Item.Spoon, Item.Knife, Item.Shovel]);
-export const crops = new Set<number>([Item.Lettuce, Item.Wheat, Item.Coffee]);
+export const crops = new Set<number>([Item.Potato, Item.Lettuce, Item.Wheat, Item.Coffee]);
 export const companions = new Set<number>([Item.Cow, Item.Retriever, Item.Collie, Item.Sheep]);
 
 const defaultInitialLevelVelocity = 0.00001;
@@ -47,7 +47,7 @@ export const growthRate = (item:number, gs:State):number => {
         const A = .1;
         const B = 1;
         const C = gs.level; // level-dependent constant TBD
-        rate = A * (farms ^ ( B* gs.toolLevel * Math.log(farms) / C)); 
+        rate = A * (farms ^ ( B* gs.toolLevel * Math.log(farms) / C));
         if (gs.sellCrop)
         {
             rate -= sellCropRate;        
@@ -86,12 +86,12 @@ export const taskSpeeds = (gs:State):Map<number, number> => {
     return result;
 }
 
-
 const farmCost:ResourceCost = {
         resource: Item.Dollar,
         //cost: 1000,
         cost: 200, // for testing
     };
+
 const companionCost = new Map<number, ResourceCost>([
     [Item.Cow,
     {
@@ -133,7 +133,7 @@ export const toolGoal = 10;
 export const tick = 50;
 
 export const initialGameState:Types.State = {
-    resources: new Map<number, number>(),
+    resources: new Map<number, number>([[Item.Farm, 0], [Item.Potato, 0]]),
     resourceProgress : new Map<number, number>(),
     taskProgress : new Map<number, number>([[Item.Level, 0]]),
     crop: Item.Potato,
