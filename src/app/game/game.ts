@@ -43,11 +43,12 @@ const completeTask = (task:number):Update => {
     }
 }
 
-const taskClick = (gs: State, item: number): void => {
+const taskClick = (item: number):Update => (gs:State) => {
     if ((gs.taskProgress.size >= gs.maxTasks) ||
         gs.taskProgress.has(item))
         return;
 
+    gs.level++;
     switch (item) {
         case Item.Level:
             break; // noop
@@ -60,7 +61,7 @@ const taskClick = (gs: State, item: number): void => {
     }
 }
 
-const resourceClick = (gs: State, item: number):void => {
+const resourceClick = (item:number):Update => (gs:State) => {
     if (gs.resourceProgress.has(item))
         return;
     const costs = Data.resourcePrices.get(item);
@@ -87,7 +88,39 @@ export const onClick = (item: number) => {
     }
 }
 
-export const gameLoop:Update = (gs:State) => {
+export const progressTasks = (delta:number):Update => (gs:State) => {
+   // Task progress + completion
+   const rates: Map<number, number> = Data.taskSpeeds(gs);
+   Data.tasks.forEach((task: number) => {
+       if (gs.taskProgress.has(task))
+       {
+           let progress = <number>gs.taskProgress.get(task) + delta * .001 * <number>rates.get(task);
+          
+           if (progress > Data.taskGoal) {
+               gs.taskProgress.delete(task);
+               const update:Update = completeTask(task);
+               update(gs);
+           }
+           else {
+               gs.taskProgress.set(task, progress);
+           }
+       }
+   });
+}
+
+export const generateResources = (delta:number):Update => (gs:State) => {
+  // Resource Generation
+  gs.resources.forEach((n:number, resource: number) => {
+    const rate:number = Data.growthRate(resource, gs);
+    if (!isNaN(rate)) {
+        gs.resources.set(resource, n + delta * rate);
+    }
+  });
+}
+
+export const gameLoop = ():Array<Update> => {
+    const result:Array<Update> = [];
+
     const time: number = Date.now();
     const delta = time - lastUpdate; // in ms
     lastUpdate = time;
@@ -96,37 +129,15 @@ export const gameLoop:Update = (gs:State) => {
     if (clicked != Types.Item.None) {
         lastClicked = Types.Item.None;
         if (isTask(clicked))
-            taskClick(gs, clicked);
+            result.push(taskClick(clicked));
         else
-            resourceClick(gs, clicked);
+            result.push(resourceClick(clicked));
     }
+ 
+    result.push(progressTasks(delta));
 
-    // Task progress + completion
-    const rates: Map<number, number> = Data.taskSpeeds(gs);
-    Data.tasks.forEach((task: number) => {
-        if (gs.taskProgress.has(task))
-        {
-            let progress = <number>gs.taskProgress.get(task) + delta * <number>rates.get(task);
-          
-            if (progress > Data.taskGoal) {
-                gs.taskProgress.delete(task);
-                const update:Update = completeTask(task);
-                update(gs);
-            }
-            else {
-                gs.taskProgress.set(task, progress);
-            }
-        }
-    });
-
-    // Resource Generation
-    gs.resources.forEach((n:number, resource: number) => {
-        const rate:number = Data.growthRate(resource, gs);
-        if (!isNaN(rate)) {
-            gs.resources.set(resource, n + delta * rate);
-        }
-    });
-
+    result.push(generateResources(delta));
+    return result;
     // Phase 2:
     // Resource progress + completion
 

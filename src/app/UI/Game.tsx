@@ -7,20 +7,24 @@ enableMapSet(); // immer setup call, to make Maps and Sets work
 
 import styles from "css/game.module.css"
 import * as Types from "@/app/game/types"
+import {Item, State, Update} from "@/app/game/types"
 import * as Data from "game/data"
 import * as Game from "game/game"
 import Grid from "UI/Grid"
 
 const Main = () => {
-    const [GS, setGS] = useImmer<Types.State>(Data.initialGameState);
+    const [GS, setGS] = useImmer<State>(Data.initialGameState);
     const [doProcessInterval, setDoProcessInterval] = React.useState<boolean>(false);
     const intervalId = React.useRef<number>(0);
 
+    //console.log(GS.taskProgress.get(Item.Work))
     if (doProcessInterval) {
         setDoProcessInterval(false);
-        setGS(Game.gameLoop);
+        const updates:Array<Update> = Game.gameLoop();
+        for (const update of updates)
+            setGS(update);
     }
-
+    
     React.useEffect(() => {
         intervalId.current = window.setInterval(() => setDoProcessInterval(true),
             Data.tick);

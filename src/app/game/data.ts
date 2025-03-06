@@ -12,8 +12,8 @@ export const tools = new Set<number>([Item.Spoon, Item.Knife, Item.Shovel]);
 export const crops = new Set<number>([Item.Lettuce, Item.Wheat, Item.Coffee]);
 export const companions = new Set<number>([Item.Cow, Item.Retriever, Item.Collie, Item.Sheep]);
 
-const defaultInitialLevelVelocity = 0.0001;
-const initialLevelVelocities:Array<number> = [0.3, 0.01, 0.003];
+const defaultInitialLevelVelocity = 0.00001;
+const initialLevelVelocities:Array<number> = [0.000003, 0.000001, 0.000003];
 
 const nTasks = (gs:State):number => {
     return 1;
@@ -80,7 +80,7 @@ export const taskSpeeds = (gs:State):Map<number, number> => {
 
     task = Item.Level;
     // What factors influence this? Farms. (and maybe cows, or sth else but that's not currently the intention)
-    speed = (initialLevelVelocities[gs.level] || defaultInitialLevelVelocity)
+    speed = (initialLevelVelocities[gs.level - 1] || defaultInitialLevelVelocity)
             + levelFarmFactor * (gs.resources.get(Item.Farm) || 0);
     result.set(task, speed);
     
