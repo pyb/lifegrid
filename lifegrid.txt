@@ -1,4 +1,14 @@
+Currently : 
+
+Basic game should be working. Test/fix
+
+Then : phase 2
+
+
+----
+
 V2 "Spec":
+
 ----
 
 Data model:

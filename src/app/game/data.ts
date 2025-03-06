@@ -125,20 +125,13 @@ export const resourceCosts = (resource:number):ResourceCost|undefined => {
 export const tick = 50;
 
 export const initialGameState:Types.State = {
-    //resources: new Map<number, ResourceInfo>(),
     resources: new Map<number, number>(),
     resourceProgress : new Map<number, number>(),
-    taskProgress : new Map<number, number>(),
+    taskProgress : new Map<number, number>([[Item.Level, 0]]),
     crop: Item.Potato,
     tool: Item.Spoon,
-    maxTasks: 1,
+    maxTasks: 2,
     toolLevel: 1,
     level: 1,
     sellCrop: false,
-    /*
-    ongoing: {
-        tasks: [{task: Item.Level, active:true, progress: 0}],
-        resources: new Map<number, ResourceInfo>(),
-    },
-    */
 }

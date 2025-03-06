@@ -36,6 +36,8 @@
     color: white;
     
     cursor: default;
+    user-select: none;
+    
     text-align: center;
     margin: auto;
 
