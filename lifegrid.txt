@@ -245,11 +245,18 @@ Render (tsx)
  => ... ? 
 [finish later]
 
+-----
+
+ph1.5 
+tool should upgrade.
+what does farm enable ? Show what costs what
+show what can be purchased in different color
+no crop gen?
 
 ----
 
 [phase 1.5]
-Test as is. bugs?
+Test as is. QA, bugs
 Colors, progress css, modal
 balance
 

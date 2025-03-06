@@ -3,17 +3,14 @@ import {Item, State, Update, ResourceCost} from "@/app/game/types"
 
 // Put everything purely numerical in Params object?
 
-export const resourcePrices = new Map<number, Array<[number, number]>>([
-    [Item.Farm, [[Item.Dollar, 1000]]],
-]);
-
 export const tasks = new Set<number>([Item.Build, Item.Level, Item.Work]);
 export const tools = new Set<number>([Item.Spoon, Item.Knife, Item.Shovel]);
 export const crops = new Set<number>([Item.Lettuce, Item.Wheat, Item.Coffee]);
 export const companions = new Set<number>([Item.Cow, Item.Retriever, Item.Collie, Item.Sheep]);
 
 const defaultInitialLevelVelocity = 0.00001;
-const initialLevelVelocities:Array<number> = [0.000003, 0.000001, 0.000003];
+//const initialLevelVelocities:Array<number> = [0.0005, 0.000001, 0.000003];
+const initialLevelVelocities:Array<number> = [0.003, 0.000001, 0.000003]; // testing
 
 const nTasks = (gs:State):number => {
     return 1;
@@ -71,11 +68,13 @@ export const taskSpeeds = (gs:State):Map<number, number> => {
     let speed:number;
 
     task = Item.Work;
-    speed = 25;
+    //speed = 25;
+    speed = 500; // for testing
     result.set(task, speed);
 
     task = Item.Build;
-    speed = 15;
+    //speed = 15;
+    speed = 500; // for testing
     result.set(task, speed);
 
     task = Item.Level;
@@ -87,25 +86,26 @@ export const taskSpeeds = (gs:State):Map<number, number> => {
     return result;
 }
 
+
 const farmCost:ResourceCost = {
         resource: Item.Dollar,
-        cost: 1000
+        //cost: 1000,
+        cost: 200, // for testing
     };
-
 const companionCost = new Map<number, ResourceCost>([
     [Item.Cow,
     {
         resource: Item.Wheat, 
-        cost: 1000
+        //cost: 1000,
+        cost: 200, // for testing
     }],
     [Item.Collie,
     {
         resource: Item.Potato, 
-        cost: 1000
+        //cost: 1000
+        cost: 200, // for testing
     }],
 ]);
-
-export const toolGoal = 10;
 
 export const resourceCosts = (resource:number):ResourceCost|undefined => {
     let cost:ResourceCost;
@@ -121,6 +121,14 @@ export const resourceCosts = (resource:number):ResourceCost|undefined => {
     }
     return cost;
 }
+
+/*
+export const resourcePrices = new Map<number, Array<[number, number]>>([
+    [Item.Farm, [[Item.Dollar, 200]]],
+]);
+*/
+
+export const toolGoal = 10;
 
 export const tick = 50;
 

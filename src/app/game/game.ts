@@ -1,5 +1,5 @@
 import * as Types from "@/app/game/types"
-import {Item, State, Update} from "@/app/game/types"
+import {Item, State, Update, ResourceCost} from "@/app/game/types"
 import * as Data from "game/data"
 
 /******************************/
@@ -11,6 +11,7 @@ const levelUp:Update = (gs:State)=> {
     gs.taskProgress.delete(Item.Level); // should happen elsewhere
     gs.level++;
     gs.taskProgress.set(Item.Level, 0); // start the next one
+    console.log("Level up : " + gs.level.toString())
     // todo : level up resources
 } 
 
@@ -62,22 +63,22 @@ const taskClick = (item: number):Update => (gs:State) => {
     }
 }
 
-const resourceClick = (item:number):Update => (gs:State) => {
+const resourceClick = (item: number): Update => (gs: State) => {
+    /*
     if (gs.resourceProgress.has(item))
         return;
-    const costs = Data.resourcePrices.get(item);
-    if (!costs)
-        return;
-    for (const [resource, cost] of costs) {
-        const r = <number>gs.resources.get(resource);
-        if (r < cost)
-            return;
-    }
-    for (const [resource, cost] of costs) {
-        const r = <number>gs.resources.get(resource);
-        gs.resources.set(resource, r - cost);
-    }
     gs.resourceProgress.set(item, 0);
+    */
+    const rCost = Data.resourceCosts(item);
+    if (!rCost)
+        return;
+    const r = gs.resources.get(rCost.resource);
+    
+    if (r !== undefined && (r >= rCost.cost)) {
+        const current: number = gs.resources.get(item) || 0;
+        gs.resources.set(rCost.resource, r - rCost.cost);
+        gs.resources.set(item, current + 1);
+    }
 }
 
 let lastUpdate:number = Date.now();
@@ -96,7 +97,6 @@ export const progressTasks = (delta:number):Update => (gs:State) => {
        if (gs.taskProgress.has(task))
        {
            let progress = <number>gs.taskProgress.get(task) + delta * .001 * <number>rates.get(task);
-          
            if (progress > Data.taskGoal) {
                gs.taskProgress.delete(task);
                const update:Update = completeTask(task);

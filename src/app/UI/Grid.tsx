@@ -34,7 +34,11 @@ const item = (name:string, resource:number|undefined, task:number|undefined, gs:
     const progress:number = gs.taskProgress.get(id) || 0;
     const active:boolean = gs.taskProgress.has(id);
     const qty = gs.resources.get(id);
-    const text:string = Data.tools.has(id) ? " / " + Data.toolGoal.toString() : ""; 
+    let text:string;
+    if (task == Item.Level)
+        text = " " + gs.level.toString();
+    else
+        text = Data.tools.has(id) ? " / " + Data.toolGoal.toString() : ""; 
     return <GridItem key={key} name={name} qty={qty} onClick={onClick} active={active} progress={progress} text={text} hoverText="" style=""/>
 }
 
