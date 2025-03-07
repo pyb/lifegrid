@@ -1,5 +1,5 @@
 import styles from "css/grid.module.css"
-import { State, Item } from "game/types";
+import { State, Item, ResourceCost } from "game/types";
 import * as Data  from "game/data";
 
 // TODO : crop selling is modal / different color for each mode
@@ -17,50 +17,71 @@ interface GridItemProps {
     name: string,
     qty?: number,
     goal?: number,
+    price?: string,
     text: string,
     hoverText: string,
     progress: number,
-    style: string,
     active: boolean,
+    clickable: boolean,
     onClick: () => void,
     // picture ?
 };
 
-const GridItem = ({name, qty, text, goal, hoverText, progress, style, onClick}:GridItemProps) => {
+const GridItem = ({name, qty, text, clickable, price, goal, hoverText, progress, onClick}:GridItemProps) => {
     return (
-        <div className={styles.item} style={progress ? backgroundProp(progress): {}} onClick={onClick}>
-            <div>
-            {name}
+        <div className={clickable ? styles.clickable : styles.item} style={progress ? backgroundProp(progress) : {}} onClick={onClick}>
+            <div className={styles.resourceName}>
+                {name}
             </div>
             <div>
-            {(qty !== undefined ? 
-            ( Math.round(qty).toString() 
-             + ( goal ? 
-                " / " + goal?.toString() :
-                "") ) :
-            "")}
+                {(qty !== undefined ?
+                    (Math.round(qty).toString()
+                        + (goal ?
+                            " / " + goal?.toString() :
+                            "")) :
+                    "")}
             </div>
-            <div>
-            {text}
+            <div className={styles.resourcePrice}>
+                {price || text}
             </div>
         </div>
     );
 }
 
-const item = (name:string, resource:number|undefined, task:number|undefined, gs:State, onClick: () => void, key:number) => {
+const item = (resource:number|undefined, task:number|undefined, gs:State, onClick: () => void, key:number) => {
     const id = (resource||task) as number; 
     const progress:number = gs.taskProgress.get(id) || 0;
     const active:boolean = gs.taskProgress.has(id);
     const qty = gs.resources.get(id);
+    let clickable:boolean = false;
+    const name:string = (resource ? Data.itemNames.get(resource) : Data.itemNames.get(task as number)) as string;
     let text:string = "";
     let goal:number|undefined;
+    let price:string |undefined;
+    if (resource)
+    {
+        const resourceCost= Data.resourceCosts(resource);
+        if (resourceCost)
+        {
+            price = resourceCost.cost.toString() + " " + Data.itemNames.get(resourceCost.resource);
+        }
+    }
+      
+    if (price || task)
+        clickable = true;
     
     if (task == Item.Level)
+    {
+        clickable = false;
         text = " " + gs.level.toString();
+    }
+        
     if (Data.tools.has(id))
-         goal = Math.round(qty as number); 
-    return <GridItem key={key} name={name} qty={resource?qty:undefined}
-                     goal={goal} onClick={onClick} active={active} progress={progress} text={text} hoverText="" style=""/>
+         goal = Data.toolGoal; 
+  
+    return <GridItem key={key} name={name} qty={resource?qty:undefined} clickable={clickable}
+                     goal={goal} onClick={onClick} active={active} price={price}
+                     progress={progress} text={text} hoverText=""/>
 }
 
 const ResourceGrid = ({items}:{items:Array<React.ReactNode>}) => {
@@ -97,16 +118,16 @@ const itemClickCallback = (onClick:(item:number) => void, item:number) => {
 const Grid = ({side, gs, onClick}:GridProps) => {
   return (side == 0 ? 
     <ResourceGrid items= {[
-        item("Dollar", Item.Dollar, undefined, gs, itemClickCallback(onClick, Item.Dollar), 0),
-        item("Farm", Item.Farm, undefined, gs, itemClickCallback(onClick, Item.Farm), 1),
-        item("Spoon", Item.Spoon, undefined, gs, itemClickCallback(onClick, Item.Tool), 2),
-        item("Cow", Item.Cow, undefined, gs, itemClickCallback(onClick, Item.Cow), 3),
-        item("Potato", Item.Potato, undefined, gs, itemClickCallback(onClick, Item.Potato), 4),
+        item(Item.Dollar, undefined, gs, itemClickCallback(onClick, Item.Dollar), 0),
+        item(Item.Farm, undefined, gs, itemClickCallback(onClick, Item.Farm), 1),
+        item(Item.Spoon, undefined, gs, itemClickCallback(onClick, Item.Tool), 2),
+        item(Item.Cow, undefined, gs, itemClickCallback(onClick, Item.Cow), 3),
+        item(Item.Potato, undefined, gs, itemClickCallback(onClick, Item.Potato), 4),
     ]} /> :
     <TaskGrid items={[
-        item("Work", undefined, Item.Work, gs, itemClickCallback(onClick, Item.Work), 10),
-        item("Build", undefined, Item.Build, gs, itemClickCallback(onClick, Item.Build), 11),
-        item("Level", undefined, Item.Level, gs, itemClickCallback(onClick, Item.Level), 12),
+        item(undefined, Item.Work, gs, itemClickCallback(onClick, Item.Work), 10),
+        item(undefined, Item.Build, gs, itemClickCallback(onClick, Item.Build), 11),
+        item(undefined, Item.Level, gs, itemClickCallback(onClick, Item.Level), 12),
     ]} />);
 }
 

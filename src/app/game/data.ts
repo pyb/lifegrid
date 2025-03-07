@@ -8,6 +8,29 @@ export const tools = new Set<number>([Item.Spoon, Item.Knife, Item.Shovel]);
 export const crops = new Set<number>([Item.Potato, Item.Lettuce, Item.Wheat, Item.Coffee]);
 export const companions = new Set<number>([Item.Cow, Item.Retriever, Item.Collie, Item.Sheep]);
 
+export const itemNames = new Map<number, string> ([
+    [Item.Build, "Build"],
+    [Item.Level, "Level"],
+    [Item.Work, "Work"],
+
+    [Item.Dollar, "$"],
+    [Item.Farm, "Farm"],
+
+    [Item.Spoon, "Spoon"],
+    [Item.Knife, "Knife"],
+    [Item.Shovel, "Shovel"],
+
+    [Item.Potato, "Potato"],
+    [Item.Lettuce, "Lettuce"],
+    [Item.Wheat, "Wheat"],
+    [Item.Coffee, "Coffee"],
+
+    [Item.Cow, "Cow"],
+    [Item.Retriever, "Golden Retriever"],
+    [Item.Collie, "Border Collie"],
+    [Item.Sheep, "Sheep"],
+]);
+
 const initialTool = Item.Spoon;
 const initialCrop = Item.Potato;
 const initialCompanion = Item.Cow;
@@ -63,7 +86,7 @@ export const growthRate = (item:number, gs:State):number => {
     return rate;
 }
 
-export const workReturn = 100;
+export const workReturn = 10;
 
 // reminder : task completion goal is 100
 export const taskSpeeds = (gs:State):Map<number, number> => {
@@ -72,13 +95,13 @@ export const taskSpeeds = (gs:State):Map<number, number> => {
     let speed:number;
 
     task = Item.Work;
-    speed = 25;
+    speed = 150;
     //speed = 500; // for testing
     result.set(task, speed);
 
     task = Item.Build;
-    //speed = 15;
-    speed = 500; // for testing
+    speed = 15;
+    // speed = 500; // for testing
     result.set(task, speed);
 
     task = Item.Level;
@@ -92,8 +115,7 @@ export const taskSpeeds = (gs:State):Map<number, number> => {
 
 const farmCost:ResourceCost = {
         resource: Item.Dollar,
-        //cost: 1000,
-        cost: 200, // for testing
+        cost: 200,
     };
 
 const companionCost = new Map<number, ResourceCost>([

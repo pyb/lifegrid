@@ -285,12 +285,15 @@ Render
 
 1.5:
 -Tool : weird. I am buying tools and tool upgrade chunks at the same time?
-- show prices on things !
-- game start boring, I can only accumulate $ to buy farms? Then it snowballs
-- Cow eats potatoes. WTF
+- Make sure clickable buttons appear clickable, and vice versa
+- grey out farms when unaffordable?
+[unsure? playtest before claiming that] - game start boring, I can only accumulate $ to buy farms? Then it snowballs
+
 
 Bugs:
 
 ----
 
--Do Farms get upgraded wrt Level?
+- Do Farms get upgraded wrt Level?
+- Cow eat potatoes. WTF
+- Design decision: Work should give $10. Adjust the rest of the prices so it makes sense

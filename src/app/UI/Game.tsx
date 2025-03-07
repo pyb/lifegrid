@@ -17,7 +17,6 @@ const Main = () => {
     const [doProcessInterval, setDoProcessInterval] = React.useState<boolean>(false);
     const intervalId = React.useRef<number>(0);
 
-    //console.log(GS.taskProgress.get(Item.Work))
     if (doProcessInterval) {
         setDoProcessInterval(false);
         const updates:Array<Update> = Game.gameLoop();
