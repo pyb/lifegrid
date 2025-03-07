@@ -82,6 +82,10 @@
     composes: item;
 }
 
+.sellable {
+    composes: item;
+}
+
 .resourceName {
     font-size:115%;
 }
@@ -94,6 +98,13 @@
     background-color: #212515;
     border-color: rgb(90, 127, 137);
     border-width: 4px;
+    border-radius: 10px;
+}
+
+.resourceGrid .sellable {
+    background-color: #2a2a1d;
+    border-color: rgb(41, 103, 78);
+    border-width: 3px;
     border-radius: 10px;
 }
 

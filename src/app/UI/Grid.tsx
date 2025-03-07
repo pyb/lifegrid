@@ -23,13 +23,16 @@ interface GridItemProps {
     progress: number,
     active: boolean,
     clickable: boolean,
+    sellable: boolean,
     onClick: () => void,
     // picture ?
 };
 
-const GridItem = ({name, qty, text, clickable, price, goal, hoverText, progress, onClick}:GridItemProps) => {
+const GridItem = ({name, qty, text, sellable, clickable, price, goal, hoverText, progress, onClick}:GridItemProps) => {
+    const style:string = sellable? styles.sellable :
+                         (clickable ? styles.clickable : styles.item);
     return (
-        <div className={clickable ? styles.clickable : styles.item} style={progress ? backgroundProp(progress) : {}} onClick={onClick}>
+        <div className={style} style={progress ? backgroundProp(progress) : {}} onClick={onClick}>
             <div className={styles.resourceName}>
                 {name}
             </div>
@@ -42,7 +45,7 @@ const GridItem = ({name, qty, text, clickable, price, goal, hoverText, progress,
                     "")}
             </div>
             <div className={styles.resourcePrice}>
-                {price || text}
+                {price || text || <span>&nbsp;</span>}
             </div>
         </div>
     );
@@ -55,9 +58,10 @@ const item = (resource:number|undefined, task:number|undefined, gs:State, onClic
     const qty = gs.resources.get(id);
     let clickable:boolean = false;
     const name:string = (resource ? Data.itemNames.get(resource) : Data.itemNames.get(task as number)) as string;
-    let text:string = "";
+    let text:string = (resource && Data.crops.has(resource) && gs.sellCrop) ? "-> $": "";
     let goal:number|undefined;
     let price:string |undefined;
+    let sellable:boolean = false;
     if (resource)
     {
         const resourceCost= Data.resourceCosts(resource);
@@ -65,6 +69,10 @@ const item = (resource:number|undefined, task:number|undefined, gs:State, onClic
         {
             price = resourceCost.cost.toString() + " " + Data.itemNames.get(resourceCost.resource);
         }
+        if (Data.crops.has(resource) &&
+            (gs.sellCrop || 
+            (gs.resources.get(resource) as number) > Data.minCropForSelling ) )
+            sellable = true;
     }
       
     if (price || task)
@@ -79,7 +87,7 @@ const item = (resource:number|undefined, task:number|undefined, gs:State, onClic
     if (Data.tools.has(id))
          goal = Data.toolGoal; 
   
-    return <GridItem key={key} name={name} qty={resource?qty:undefined} clickable={clickable}
+    return <GridItem key={key} name={name} qty={resource?qty:undefined} clickable={clickable} sellable={sellable}
                      goal={goal} onClick={onClick} active={active} price={price}
                      progress={progress} text={text} hoverText=""/>
 }

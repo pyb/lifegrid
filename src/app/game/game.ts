@@ -68,6 +68,11 @@ const resourceClick = (item: number): Update => (gs: State) => {
         return;
     gs.resourceProgress.set(item, 0);
     */
+    if (Data.crops.has(item) && 
+        (<number>gs.resources.get(item) > Data.minCropForSelling)) {
+        gs.sellCrop = !gs.sellCrop;
+    }
+
     const rCost = Data.resourceCosts(item);
     if (!rCost)
         return;
@@ -113,7 +118,14 @@ export const generateResources = (delta:number):Update => (gs:State) => {
   gs.resources.forEach((n:number, resource: number) => {
     const rate:number = Data.growthRate(resource, gs);
     if (!isNaN(rate)) {
-        gs.resources.set(resource, n + delta * rate);
+        const newValue:number = Math.max(0,  n + delta * rate);
+        gs.resources.set(resource, newValue);
+        if (gs.sellCrop &&
+            Data.crops.has(resource) && 
+            newValue < 1)
+            {
+                gs.sellCrop = false;
+            }
     }
   });
 }

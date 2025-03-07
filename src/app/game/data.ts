@@ -46,10 +46,11 @@ const nTasks = (gs:State):number => {
 export const taskGoal = 100;
 
 const levelFarmFactor = 1;
-const sellCropRate = .1;
+const sellCropRate = .01;
+export const minCropForSelling = 5;
 
 export const cropDollarConversion = new Map<number, number> ([
-    [Item.Potato, 1],
+    [Item.Potato, .2],
     [Item.Lettuce, 2],
     [Item.Wheat, 4],
     [Item.Coffee, 8],
@@ -63,7 +64,8 @@ export const growthRate = (item:number, gs:State):number => {
     {
         if (gs.sellCrop)
         {
-            rate = sellCropRate * <number>cropDollarConversion.get(item);
+            rate = sellCropRate * <number>cropDollarConversion.get(gs.crop);
+            console.log(rate)
         }
     }
     else if (crops.has(item))
@@ -77,7 +79,7 @@ export const growthRate = (item:number, gs:State):number => {
         rate = A * (farms ^ ( B* gs.toolLevel * Math.log(farms) / C));
         if (gs.sellCrop)
         {
-            rate -= sellCropRate;        
+            rate -= sellCropRate;  
         }
     }
     else {
@@ -100,8 +102,8 @@ export const taskSpeeds = (gs:State):Map<number, number> => {
     result.set(task, speed);
 
     task = Item.Build;
-    speed = 15;
-    // speed = 500; // for testing
+    //speed = 20;
+    speed = 200; // for testing
     result.set(task, speed);
 
     task = Item.Level;

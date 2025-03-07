@@ -247,22 +247,10 @@ Render (tsx)
 
 -----
 
-ph1.5 
-tool should upgrade.
-what does farm enable ? Show what costs what
-show what can be purchased in different color
-no crop gen?
 
 ----
 
-[phase 1.5]
-Test as is. QA, bugs
-Colors, progress css, modal
-balance
-
 [Phase 2] 
-Progressive Resource acquisition (what was that? it was when I click on a resource, it should not be given instantly, but there
-should be a delay with progress bar)
 autoclick
 Level up
 
@@ -284,16 +272,26 @@ Render
 -----
 
 1.5:
+ph1.5 
+- tool should upgrade.
+- what does farm enable ? Show what costs what
+
 -Tool : weird. I am buying tools and tool upgrade chunks at the same time?
-- Make sure clickable buttons appear clickable, and vice versa
-- grey out farms when unaffordable?
-[unsure? playtest before claiming that] - game start boring, I can only accumulate $ to buy farms? Then it snowballs
+grey out build when work is running and vice versa
 
+- Selling doesn't make $
 
-Bugs:
 
 ----
 
 - Do Farms get upgraded wrt Level?
 - Cow eat potatoes. WTF
 - Design decision: Work should give $10. Adjust the rest of the prices so it makes sense
+- Task speed divided by 2^(tool level)?
+
+Lower prio:
+- slight grey out unaffordable farm/cow
+- Progressive Resource acquisition (what was that? it was when I click on a resource, it should not be given instantly, but there
+should be a delay with progress bar)
+Potato selling modal design:
+A Sell button within the Resource button/
