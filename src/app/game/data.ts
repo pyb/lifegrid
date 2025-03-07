@@ -8,6 +8,10 @@ export const tools = new Set<number>([Item.Spoon, Item.Knife, Item.Shovel]);
 export const crops = new Set<number>([Item.Potato, Item.Lettuce, Item.Wheat, Item.Coffee]);
 export const companions = new Set<number>([Item.Cow, Item.Retriever, Item.Collie, Item.Sheep]);
 
+const initialTool = Item.Spoon;
+const initialCrop = Item.Potato;
+const initialCompanion = Item.Cow;
+
 const defaultInitialLevelVelocity = 0.00001;
 //const initialLevelVelocities:Array<number> = [0.0005, 0.000001, 0.000003];
 const initialLevelVelocities:Array<number> = [0.005, 0.000001, 0.000003]; // testing
@@ -95,13 +99,13 @@ const farmCost:ResourceCost = {
 const companionCost = new Map<number, ResourceCost>([
     [Item.Cow,
     {
-        resource: Item.Wheat, 
+        resource: Item.Potato, 
         //cost: 1000,
         cost: 200, // for testing
     }],
     [Item.Collie,
     {
-        resource: Item.Potato, 
+        resource: Item.Wheat, 
         //cost: 1000
         cost: 200, // for testing
     }],
@@ -133,7 +137,7 @@ export const toolGoal = 10;
 export const tick = 50;
 
 export const initialGameState:Types.State = {
-    resources: new Map<number, number>([[Item.Farm, 0], [Item.Potato, 0]]),
+    resources: new Map<number, number>([[Item.Dollar, 0], [Item.Farm, 0], [initialTool, 0], [initialCrop, 0], [initialCompanion, 0] ]),
     resourceProgress : new Map<number, number>(),
     taskProgress : new Map<number, number>([[Item.Level, 0]]),
     crop: Item.Potato,

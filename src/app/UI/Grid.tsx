@@ -4,18 +4,6 @@ import * as Data  from "game/data";
 
 // TODO : crop selling is modal / different color for each mode
 
-interface GridItemProps {
-    name: string,
-    qty?: number,
-    text: string,
-    hoverText: string,
-    progress: number,
-    style: string,
-    active: boolean,
-    onClick: () => void,
-    // picture ?
-};
-
 const color1: string = "rgb(86, 37, 37) ";
 //const color2: string = "rgb(24, 34, 29) ";
 const color2: string = "#443333";
@@ -25,14 +13,35 @@ const backgroundProp = (progress:number) => { return {
      + "%, " + color2 + " " + progress.toString() + "% " + (1-progress).toString() +  "%)"
 }}
 
-const GridItem = ({name, qty, text, hoverText, progress, style, onClick}:GridItemProps) => {
+interface GridItemProps {
+    name: string,
+    qty?: number,
+    goal?: number,
+    text: string,
+    hoverText: string,
+    progress: number,
+    style: string,
+    active: boolean,
+    onClick: () => void,
+    // picture ?
+};
+
+const GridItem = ({name, qty, text, goal, hoverText, progress, style, onClick}:GridItemProps) => {
     return (
         <div className={styles.item} style={progress ? backgroundProp(progress): {}} onClick={onClick}>
             <div>
-            {name + (qty ? (" : " + Math.round(qty).toString()) : "") + text}
+            {name}
             </div>
             <div>
-            {" ( " +  Math.round(progress).toString() + " ) "}
+            {(qty !== undefined ? 
+            ( Math.round(qty).toString() 
+             + ( goal ? 
+                " / " + goal?.toString() :
+                "") ) :
+            "")}
+            </div>
+            <div>
+            {text}
             </div>
         </div>
     );
@@ -43,12 +52,15 @@ const item = (name:string, resource:number|undefined, task:number|undefined, gs:
     const progress:number = gs.taskProgress.get(id) || 0;
     const active:boolean = gs.taskProgress.has(id);
     const qty = gs.resources.get(id);
-    let text:string;
+    let text:string = "";
+    let goal:number|undefined;
+    
     if (task == Item.Level)
         text = " " + gs.level.toString();
-    else
-        text = Data.tools.has(id) ? " / " + Data.toolGoal.toString() : ""; 
-    return <GridItem key={key} name={name} qty={qty} onClick={onClick} active={active} progress={progress} text={text} hoverText="" style=""/>
+    if (Data.tools.has(id))
+         goal = Math.round(qty as number); 
+    return <GridItem key={key} name={name} qty={resource?qty:undefined}
+                     goal={goal} onClick={onClick} active={active} progress={progress} text={text} hoverText="" style=""/>
 }
 
 const ResourceGrid = ({items}:{items:Array<React.ReactNode>}) => {

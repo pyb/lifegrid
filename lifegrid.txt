@@ -283,8 +283,14 @@ Render
 
 -----
 
--Do Farms get upgraded wrt Level?
+1.5:
 -Tool : weird. I am buying tools and tool upgrade chunks at the same time?
+- show prices on things !
+- game start boring, I can only accumulate $ to buy farms? Then it snowballs
+- Cow eats potatoes. WTF
+
+Bugs:
 
 ----
 
+-Do Farms get upgraded wrt Level?
