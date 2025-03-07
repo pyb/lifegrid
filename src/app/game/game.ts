@@ -15,12 +15,27 @@ const levelUp:Update = (gs:State)=> {
     // todo : level up resources
 } 
 
+const upgrade:Update = (gs:State)=>{
+    const nextTool:number = Data.nextTool(gs.tool);
+    if (nextTool == 0)
+        return;
+    gs.toolLevel++;
+    gs.resources.delete(gs.tool);
+    gs.resources.set(nextTool, 0);
+    gs.tool = nextTool;
+    console.log(nextTool)
+}
+
 const build:Update = (gs:State) => {
     gs.taskProgress.delete(Item.Build); // should happen elsewhere
     const toolType:number = gs.tool;
     const tool = <number>gs.resources.get(toolType) || 0;
-    console.log(tool)
-    gs.resources.set(toolType, tool + 1);
+    if ( (tool + 1) == Data.toolGoal)
+    {
+        upgrade(gs);
+    }
+    else
+        gs.resources.set(toolType, tool + 1);
 }
 
 const work:Update = (gs:State) => {

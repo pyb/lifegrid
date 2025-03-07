@@ -273,13 +273,13 @@ Render
 
 1.5:
 ph1.5 
-- tool should upgrade.
+- fix : tool should upgrade.
 - what does farm enable ? Show what costs what
 
 -Tool : weird. I am buying tools and tool upgrade chunks at the same time?
 grey out build when work is running and vice versa
 
-- Selling doesn't make $
+- Can I somehow increase sell rate?
 
 
 ----
@@ -288,6 +288,7 @@ grey out build when work is running and vice versa
 - Cow eat potatoes. WTF
 - Design decision: Work should give $10. Adjust the rest of the prices so it makes sense
 - Task speed divided by 2^(tool level)?
+- Remove build? Buy tool upgrades with $?
 
 Lower prio:
 - slight grey out unaffordable farm/cow

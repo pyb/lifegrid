@@ -15,15 +15,16 @@ export enum Item {
     Collie,
     Retriever,
     
-
-    Tool,
     // Level 1
     Spoon,
     Knife,
     Shovel,
+    Hammer,
     // Level 2
     Drill,
+    Grinder,
     Bulldozer,
+    
 
     Crop,
     Potato,

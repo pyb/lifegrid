@@ -4,9 +4,25 @@ import {Item, State, Update, ResourceCost} from "@/app/game/types"
 // Put everything purely numerical in Params object?
 
 export const tasks = new Set<number>([Item.Build, Item.Level, Item.Work]);
-export const tools = new Set<number>([Item.Spoon, Item.Knife, Item.Shovel]);
+export const toolSeq1:Array<number> = [Item.Spoon, Item.Knife, Item.Shovel, Item.Hammer];
+export const toolSeq2:Array<number> = [Item.Drill, Item.Grinder, Item.Bulldozer];
+export const tools = new Set<number>(toolSeq1.concat(toolSeq2));
 export const crops = new Set<number>([Item.Potato, Item.Lettuce, Item.Wheat, Item.Coffee]);
 export const companions = new Set<number>([Item.Cow, Item.Retriever, Item.Collie, Item.Sheep]);
+
+export const nextTool = (tool:number):number => {
+    let toolSeq:Array<number>;
+    if (toolSeq1.includes(tool))
+        toolSeq = toolSeq1;
+    else
+        toolSeq = toolSeq2;
+
+    const i = toolSeq.indexOf(tool);
+    if (i == (toolSeq.length - 1) )
+        return toolSeq[0];
+    else
+        return toolSeq[i+1];
+}
 
 export const itemNames = new Map<number, string> ([
     [Item.Build, "Build"],
@@ -19,6 +35,10 @@ export const itemNames = new Map<number, string> ([
     [Item.Spoon, "Spoon"],
     [Item.Knife, "Knife"],
     [Item.Shovel, "Shovel"],
+    [Item.Hammer, "Hammer"],
+    [Item.Drill, "Drill"],
+    [Item.Grinder, "Grinder"],
+    [Item.Bulldozer, "Bulldozer"],
 
     [Item.Potato, "Potato"],
     [Item.Lettuce, "Lettuce"],
@@ -46,7 +66,7 @@ const nTasks = (gs:State):number => {
 export const taskGoal = 100;
 
 const levelFarmFactor = 1;
-const sellCropRate = .01;
+const sellCropRate = .003;
 export const minCropForSelling = 5;
 
 export const cropDollarConversion = new Map<number, number> ([
@@ -164,8 +184,8 @@ export const initialGameState:Types.State = {
     resources: new Map<number, number>([[Item.Dollar, 0], [Item.Farm, 0], [initialTool, 0], [initialCrop, 0], [initialCompanion, 0] ]),
     resourceProgress : new Map<number, number>(),
     taskProgress : new Map<number, number>([[Item.Level, 0]]),
-    crop: Item.Potato,
-    tool: Item.Spoon,
+    crop: initialCrop,
+    tool: initialTool,
     maxTasks: 2,
     toolLevel: 1,
     level: 1,

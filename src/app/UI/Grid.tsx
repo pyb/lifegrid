@@ -128,9 +128,9 @@ const Grid = ({side, gs, onClick}:GridProps) => {
     <ResourceGrid items= {[
         item(Item.Dollar, undefined, gs, itemClickCallback(onClick, Item.Dollar), 0),
         item(Item.Farm, undefined, gs, itemClickCallback(onClick, Item.Farm), 1),
-        item(Item.Spoon, undefined, gs, itemClickCallback(onClick, Item.Tool), 2),
+        item(gs.tool, undefined, gs, itemClickCallback(onClick, gs.tool), 2),
         item(Item.Cow, undefined, gs, itemClickCallback(onClick, Item.Cow), 3),
-        item(Item.Potato, undefined, gs, itemClickCallback(onClick, Item.Potato), 4),
+        item(gs.crop, undefined, gs, itemClickCallback(onClick, gs.crop), 4),
     ]} /> :
     <TaskGrid items={[
         item(undefined, Item.Work, gs, itemClickCallback(onClick, Item.Work), 10),
